@@ -1,3 +1,4 @@
+// src/App.jsx
 import React, { useContext } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { AppContext } from './context/AppContext';
@@ -11,21 +12,21 @@ import Review from './pages/Review';
 import ReminderSettings from './pages/ReminderSettings';
 import SessionSummary from './pages/SessionSummary';
 import ProgressDashboard from './pages/ProgressDashboard';
+import DayComplete from './pages/DayComplete';
 import Completion from './pages/Completion';
 
 export default function App() {
   const { state } = useContext(AppContext);
-  const { user, hasConsented } = state;
+  const { user } = state;
 
   return (
     <Routes>
-      {/* ====== PUBLIC ROUTES ====== */}
+      {/* Public */}
       <Route path="/" element={<Welcome />} />
       <Route path="/consent" element={<Consent />} />
       <Route path="/login" element={<Login />} />
 
-      {/* ====== PROTECTED FLOW ====== */}
-      {/* If not logged in, redirect to /login */}
+      {/* Protected flow: require user */}
       <Route
         path="/practice/:day"
         element={user ? <PracticeDeck /> : <Navigate to="/login" replace />}
@@ -47,15 +48,19 @@ export default function App() {
         element={user ? <SessionSummary /> : <Navigate to="/login" replace />}
       />
       <Route
-        path="/dashboard"
+        path="/dashboard/:day"
         element={user ? <ProgressDashboard /> : <Navigate to="/login" replace />}
+      />
+      <Route
+        path="/day-complete/:day"
+        element={user ? <DayComplete /> : <Navigate to="/login" replace />}
       />
       <Route
         path="/completion"
         element={user ? <Completion /> : <Navigate to="/login" replace />}
       />
 
-      {/* Catch‐all: redirect unknown to “/” */}
+      {/* Catch‐all */}
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
   );

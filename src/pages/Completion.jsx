@@ -10,15 +10,14 @@ export default function Completion() {
   const navigate = useNavigate();
 
   const handleFinish = () => {
-    // Reset everything and go back to Welcome
     resetAll();
     navigate('/');
   };
 
   return (
     <div className="container">
-      <Header title="Completion" backTo="/" />
-      <div className="content" style={{ paddingTop: '24px' }}>
+      <Header title="All Done!" backTo="/" />
+      <div className="content" style={{ paddingTop: '24px', textAlign: 'center' }}>
         <div className="completion-card">
           <h2
             style={{
@@ -31,8 +30,7 @@ export default function Completion() {
             Thank You for Your Participation!
           </h2>
           <p style={{ fontSize: '1rem', color: 'var(--color-primary-dark)' }}>
-            Your data has been recorded. Please check your email for further instructions.
-            Feel free to explore more features.
+            All eight days are complete. Your data have been recorded. Feel free to exit or revisit your progress any time.
           </p>
         </div>
 

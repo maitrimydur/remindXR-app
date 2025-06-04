@@ -22,19 +22,15 @@ export default function SessionSummary() {
   const struggledCount = total - gotCount;
   const pct = Math.round((gotCount / total) * 100);
 
-  // Build a simple pie‐chart: one slice for “got” (in dark blue), one for “struggled” (light blue).
-  // We'll draw two <path> arcs in an SVG. For simplicity, assume a circle radius = 50.
+  // Build a simple pie‐chart
   const radius = 50;
-  const center = 60; // leave margin
+  const center = 60;
   const angleGot = (gotCount / total) * 360;
   const angleStr = (struggledCount / total) * 360;
-
   function describeArc(cx, cy, r, startAngle, endAngle) {
-    // Helper to draw an arc in SVG coords
     const start = polarToCartesian(cx, cy, r, endAngle);
     const end = polarToCartesian(cx, cy, r, startAngle);
     const largeArcFlag = endAngle - startAngle <= 180 ? '0' : '1';
-
     return [
       'M', start.x, start.y,
       'A', r, r, 0, largeArcFlag, 0, end.x, end.y,
@@ -42,7 +38,6 @@ export default function SessionSummary() {
       'Z'
     ].join(' ');
   }
-
   function polarToCartesian(cx, cy, r, angleInDegrees) {
     const angleInRadians = ((angleInDegrees - 90) * Math.PI) / 180.0;
     return {
@@ -50,40 +45,51 @@ export default function SessionSummary() {
       y: cy + r * Math.sin(angleInRadians),
     };
   }
-
   const pathGot = describeArc(center, center, radius, 0, angleGot);
   const pathStr = describeArc(center, center, radius, angleGot, angleGot + angleStr);
 
   const handleContinue = () => {
-    if (dayNum < 8) {
-      navigate(`/practice/${dayNum + 1}`);
-    } else {
-      navigate('/dashboard');
-    }
+    // After Session Summary, show the Dashboard for this day
+    navigate(`/dashboard/${dayNum}`);
   };
 
   return (
     <div className="container">
       <Header title="Session Summary" backTo={`/review/${dayNum}`} />
       <div className="content" style={{ textAlign: 'center', paddingTop: '24px' }}>
+        {/* Time Spent */}
         <div style={{ marginBottom: '16px', fontSize: '1rem', color: 'var(--color-text-dark)' }}>
           Time Spent
         </div>
-        <div style={{ marginBottom: '24px', fontSize: '1.5rem', fontWeight: 700, color: 'var(--color-text-dark)' }}>
+        <div
+          style={{
+            marginBottom: '24px',
+            fontSize: '1.5rem',
+            fontWeight: 700,
+            color: 'var(--color-text-dark)',
+          }}
+        >
           {timeSpent}
         </div>
 
+        {/* Score */}
         <div style={{ marginBottom: '16px', fontSize: '1rem', color: 'var(--color-text-dark)' }}>
           Score
         </div>
-        <div style={{ fontSize: '1.5rem', fontWeight: 700, color: 'var(--color-primary-dark)', marginBottom: '8px' }}>
+        <div
+          style={{
+            fontSize: '1.5rem',
+            fontWeight: 700,
+            color: 'var(--color-primary-dark)',
+            marginBottom: '8px',
+          }}
+        >
           {gotCount}/{total} ({pct}%)
         </div>
 
+        {/* Pie chart */}
         <svg width="120" height="120" style={{ marginBottom: '16px' }}>
-          {/* “Got It” slice in dark blue */}
           <path d={pathGot} fill="var(--color-primary)" />
-          {/* “Struggled” slice in light blue */}
           <path d={pathStr} fill="var(--color-accent-light)" />
         </svg>
 
@@ -115,7 +121,7 @@ export default function SessionSummary() {
         </div>
 
         <Button large onClick={handleContinue}>
-          Continue
+          View Progress
         </Button>
       </div>
     </div>

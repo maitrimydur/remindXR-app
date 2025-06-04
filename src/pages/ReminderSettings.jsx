@@ -19,7 +19,6 @@ export default function ReminderSettings() {
   const [time, setTime] = useState(state.reminderTime || '09:00 AM');
   const scheduledRef = useRef(null);
 
-  // Whenever “enabled” or “time” changes, schedule/cancel notifications
   useEffect(() => {
     if (enabled) {
       requestNotificationPermission().then((perm) => {
@@ -40,7 +39,6 @@ export default function ReminderSettings() {
     }
   }, [enabled, time]);
 
-  // On mount, if reminders were already enabled, (re‐)schedule them
   useEffect(() => {
     if (state.reminderEnabled && state.reminderTime) {
       scheduledRef.current = scheduleDailyReminder(state.reminderTime);
@@ -53,7 +51,6 @@ export default function ReminderSettings() {
   }, [state.reminderEnabled, state.reminderTime]);
 
   const handleTimeClick = () => {
-    // Cycle through some presets; replace with a proper time picker if you prefer
     const presets = ['08:00 AM', '09:00 AM', '10:00 AM', '12:00 PM', '06:00 PM'];
     const idx = presets.indexOf(time);
     const next = presets[(idx + 1) % presets.length];
@@ -62,12 +59,13 @@ export default function ReminderSettings() {
 
   const handleSave = () => {
     setReminder(enabled, time);
-    navigate('/dashboard');
+    // After Day 1 reminder, go to Day 1 Session Summary
+    navigate('/summary/1');
   };
 
   return (
     <div className="container">
-      <Header title="Reminder" backTo="/" />
+      <Header title="Reminder" backTo="/review/1" />
       <div className="content">
         <h2
           style={{
@@ -82,28 +80,36 @@ export default function ReminderSettings() {
         <p style={{ marginBottom: '24px', color: 'var(--color-text-dark)' }}>
           Choose a time each day to nudge you back to your practice.
         </p>
-
         <div className="toggle-container">
           <span className="toggle-label">Enable Daily Reminder</span>
           <ToggleSwitch checked={enabled} onChange={setEnabled} />
         </div>
-
         {enabled && (
           <div style={{ marginBottom: '16px' }}>
             <TimePicker time={time} onClick={handleTimeClick} />
           </div>
         )}
-
         {enabled && (
-          <p style={{ fontSize: '0.875rem', color: 'var(--color-text-dark)', marginBottom: '24px' }}>
+          <p
+            style={{
+              fontSize: '0.875rem',
+              color: 'var(--color-text-dark)',
+              marginBottom: '24px',
+            }}
+          >
             Next session: Tomorrow at {time}.
           </p>
         )}
-
         <Button large onClick={handleSave}>
           Save and Continue
         </Button>
-        <p style={{ fontSize: '0.75rem', color: 'var(--color-text-dark)', marginTop: '8px' }}>
+        <p
+          style={{
+            fontSize: '0.75rem',
+            color: 'var(--color-text-dark)',
+            marginTop: '8px',
+          }}
+        >
           You can change this any time in Settings.
         </p>
       </div>

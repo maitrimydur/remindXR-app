@@ -34,7 +34,7 @@ export default function Review() {
     }
   }, [sessionData]);
 
-  // If sessionData is still undefined, render nothing (redirect is already triggered above)
+  // Now that both hooks have been called unconditionally, we can safely return early
   if (!sessionData) {
     return null;
   }
@@ -54,10 +54,10 @@ export default function Review() {
   };
 
   const handleComplete = () => {
-    if (dayNum < 8) {
-      navigate(`/practice/${dayNum + 1}`);
-    } else {
+    if (dayNum === 1) {
       navigate('/reminder');
+    } else {
+      navigate(`/summary/${dayNum}`);
     }
   };
 
@@ -76,7 +76,6 @@ export default function Review() {
             />
           ))}
         </div>
-
         <div style={{ marginTop: '24px', textAlign: 'center' }}>
           <Button large onClick={handleComplete}>
             Complete
