@@ -1,0 +1,306 @@
+/* index.css */
+
+/* ---- Simple reset ---- */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+html, body, #root {
+  height: 100%;
+  width: 100%;
+  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+}
+
+/* ---- Color palette ---- */
+:root {
+  /* Primary / Header Blue (#1E40AF) */
+  --color-primary-dark: #1e40af;
+  /* Primary Button (#2563EB) */
+  --color-primary: #2563eb;
+  /* Hover / Accent Blue (#3B82F6) */
+  --color-accent: #3b82f6;
+  /* Lighter Accent (#60A5FA) */
+  --color-accent-light: #60a5fa;
+  /* Background (#DBEAFE) */
+  --color-bg: #dbeafe;
+  /* Text dark */
+  --color-text-dark: #1e3a8a;
+  /* Stripe */
+  --color-divider: #aac9ff;
+}
+
+/* ---- Utility classes ---- */
+.bg-primary {
+  background-color: var(--color-primary);
+}
+.bg-primary-dark {
+  background-color: var(--color-primary-dark);
+}
+.bg-bg {
+  background-color: var(--color-bg);
+}
+
+.text-primary-dark {
+  color: var(--color-text-dark);
+}
+.text-white {
+  color: #ffffff;
+}
+
+.btn {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--color-primary);
+  color: white;
+  font-weight: 700;
+  border: none;
+  border-radius: 8px;
+  padding: 16px;
+  width: 100%;
+  max-width: 360px;
+  cursor: pointer;
+  font-size: 1.125rem; /* 18px */
+}
+.btn:hover {
+  background-color: var(--color-accent);
+}
+.btn-large {
+  font-size: 1.25rem; /* 20px */
+  padding: 18px;
+}
+
+.container {
+  width: 100%;
+  height: 100%;
+  background-color: var(--color-bg);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.header {
+  background-color: var(--color-primary-dark);
+  width: 100%;
+  padding: 14px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.header h1 {
+  color: white;
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+/* Simple scrollable content area */
+.content {
+  flex: 1;
+  overflow-y: auto;
+  width: 100%;
+  max-width: 420px;
+  padding: 16px;
+}
+
+/* Generic card */
+.card {
+  background-color: white;
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  margin-bottom: 16px;
+  width: 100%;
+}
+
+/* Divider line */
+.divider {
+  height: 1px;
+  background-color: var(--color-divider);
+  margin: 12px 0;
+}
+
+/* Word title */
+.word-title {
+  font-size: 2rem; /* 32px */
+  font-weight: 700;
+  color: var(--color-text-dark);
+  text-align: center;
+  margin-bottom: 12px;
+}
+
+/* Image placeholder wrapper */
+.word-image {
+  width: 200px;
+  height: 200px;
+  background-color: var(--color-accent-light);
+  border-radius: 100px;
+  margin: 0 auto 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+/* Play button circle */
+.play-button {
+  width: 64px;
+  height: 64px;
+  background-color: var(--color-primary);
+  border-radius: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 24px;
+  cursor: pointer;
+}
+.play-button svg {
+  width: 32px;
+  height: 32px;
+  fill: white;
+}
+
+/* Got It / Struggled buttons */
+.choice-btn {
+  background-color: var(--color-primary);
+  color: white;
+  font-weight: 700;
+  border: none;
+  border-radius: 8px;
+  padding: 14px;
+  width: 100%;
+  max-width: 300px;
+  margin: 8px auto;
+  font-size: 1rem;
+  cursor: pointer;
+}
+.choice-btn:hover {
+  background-color: var(--color-accent);
+}
+
+/* Pill button inside review row */
+.pill {
+  background-color: var(--color-primary);
+  color: #fff;
+  border: none;
+  border-radius: 32px;
+  padding: 6px 14px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+}
+.pill.editing {
+  background-color: var(--color-accent-light);
+}
+
+/* Table / List styling for Review page */
+.review-list {
+  width: 100%;
+  border-top: 1px solid var(--color-divider);
+}
+.review-row {
+  display: flex;
+  align-items: center;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--color-divider);
+}
+.review-word {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--color-text-dark);
+}
+
+/* Simple toggle styling */
+.toggle-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+.toggle-label {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--color-text-dark);
+}
+.toggle-switch {
+  position: relative;
+  width: 50px;
+  height: 26px;
+}
+.toggle-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: -2px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  transition: .2s;
+  border-radius: 26px;
+}
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 22px;
+  width: 22px;
+  left: 2px;
+  bottom: 2px;
+  background-color: white;
+  transition: .2s;
+  border-radius: 50%;
+}
+input:checked + .slider {
+  background-color: var(--color-primary);
+}
+input:checked + .slider:before {
+  transform: translateX(24px);
+}
+
+/* Time picker styling */
+.timepicker {
+  background-color: white;
+  border-radius: 8px;
+  padding: 12px;
+  font-size: 1rem;
+  width: 100%;
+  max-width: 300px;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Chart wrapper */
+.chart-container {
+  background-color: white;
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 16px;
+}
+
+/* Completion card */
+.completion-card {
+  background-color: var(--color-accent-light);
+  border: 2px solid var(--color-primary);
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 24px;
+  width: 100%;
+}
+
+/* Link styling */
+.link {
+  color: var(--color-primary);
+  text-decoration: underline;
+  cursor: pointer;
+  font-size: 0.875rem;
+  margin-top: 8px;
+}
