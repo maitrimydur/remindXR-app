@@ -1,6 +1,9 @@
-// src/pages/Login.jsx
 import React, { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
+
+// 1. Import the CSS file
+import './Login.css';
+
 import Header from '../components/Header';
 import InputField from '../components/InputField';
 import Button from '../components/Button';
@@ -33,7 +36,6 @@ export default function Login() {
       setUser(user);
       navigate('/practice/1'); // start Day 1 practice
     } catch (error) {
-      // Now using error.message so that the caught variable is actually used
       setError(error.message || 'Authentication failed. Please try again.');
     } finally {
       setLoading(false);
@@ -55,12 +57,12 @@ export default function Login() {
   };
 
   return (
-    <div className="container">
+    // 2. Add "login-page" alongside "container"
+    <div className="container login-page">
       <Header title={isSignUp ? 'Sign Up' : 'Sign In'} backTo="/" />
-      <div className="content" style={{ textAlign: 'center', paddingTop: '24px' }}>
-        <h2 style={{ fontSize: '1.5rem', fontWeight: 700, color: 'var(--color-primary-dark)', marginBottom: '24px' }}>
-          {isSignUp ? 'Create An Account' : 'Log In'}
-        </h2>
+
+      <div className="content">
+        {/* 3. Removed the <h2> entirely as requested */}
 
         <form onSubmit={handleEmailAuth}>
           <InputField
@@ -87,7 +89,7 @@ export default function Login() {
           </Button>
         </form>
 
-        <div style={{ margin: '16px 0', color: 'var(--color-text-dark)' }}>
+        <div className="login-toggle">
           {isSignUp ? (
             <>
               Already have an account?{' '}
@@ -119,95 +121,56 @@ export default function Login() {
 
         <div style={{ display: 'flex', alignItems: 'center', margin: '16px 0' }}>
           <div className="divider" style={{ flex: 1 }}></div>
-          <span style={{ margin: '0 12px', color: 'var(--color-text-dark)' }}>OR</span>
+          <span>OR</span>
           <div className="divider" style={{ flex: 1 }}></div>
         </div>
 
         {/* OAuth Buttons */}
         <div style={{ width: '100%', maxWidth: '360px', margin: '0 auto' }}>
           <button
-            className="btn"
-            style={{
-              backgroundColor: '#FFFFFF',
-              color: '#000',
-              marginBottom: '12px',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              border: '1px solid var(--color-divider)',
-            }}
+            className="oauth-btn"
             onClick={() => handleOAuth('google')}
             disabled={loading}
           >
             <img
               src="https://img.icons8.com/color/24/000000/google-logo.png"
               alt="Google"
-              style={{ marginRight: '8px' }}
             />
             Continue with Google
           </button>
 
           <button
-            className="btn"
-            style={{
-              backgroundColor: '#FFFFFF',
-              color: '#000',
-              marginBottom: '12px',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              border: '1px solid var(--color-divider)',
-            }}
+            className="oauth-btn"
             onClick={() => handleOAuth('facebook')}
             disabled={loading}
           >
             <img
               src="https://img.icons8.com/color/24/000000/facebook-new.png"
               alt="Facebook"
-              style={{ marginRight: '8px' }}
             />
             Continue with Facebook
           </button>
 
           <button
-            className="btn"
-            style={{
-              backgroundColor: '#FFFFFF',
-              color: '#000',
-              marginBottom: '12px',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              border: '1px solid var(--color-divider)',
-            }}
+            className="oauth-btn"
             onClick={() => handleOAuth('microsoft')}
             disabled={loading}
           >
             <img
               src="https://img.icons8.com/color/24/000000/microsoft.png"
               alt="Microsoft"
-              style={{ marginRight: '8px' }}
             />
             Continue with Microsoft
           </button>
 
           <button
-            className="btn"
-            style={{
-              backgroundColor: '#FFFFFF',
-              color: '#000',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              border: '1px solid var(--color-divider)',
-            }}
+            className="oauth-btn"
             onClick={() => handleOAuth('apple')}
             disabled={loading}
           >
             <img
               src="https://img.icons8.com/ios-filled/24/000000/mac-os.png"
               alt="Apple"
-              style={{ marginRight: '8px' }}
             />
             Continue with Apple
           </button>

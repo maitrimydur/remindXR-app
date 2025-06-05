@@ -1,0 +1,191 @@
+/* src/pages/Login.css */
+
+/* 1) Make the whole page background #3B82F6 */
+.container.login-page {
+  background-color: #3B82F6;
+  min-height: 100vh;        /* ensure it fills the screen */
+  padding-bottom: 40px;     /* give some breathing-room at the bottom */
+}
+
+/* 2) Override the header inside this page so it’s flush and all white text */
+.container.login-page .header {
+  background-color: #3B82F6; /* same solid blue */
+  height: 56px;              /* keep the 56px height */
+  display: flex;
+  align-items: center;       /* vertical center */
+  justify-content: center;
+  position: relative;
+}
+
+/* Tweak the back arrow (smaller, no extra padding) */
+.container.login-page .header_back {
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  text-decoration: none;
+  font-size: 1.5rem;     /* a bit smaller than 2rem */
+  color: #DBEAFE;        /* pure white arrow */
+  padding: 0;            /* remove any extra padding */
+}
+
+/* Tweak the title: white text, a bit larger */
+.container.login-page .header_title {
+  margin: 0;
+  font-size: 1.5rem;     /* roughly 24px, adjust if needed */
+  font-weight: 600;
+  color: #DBEAFE;        /* lighter-blue for the title text */
+}
+
+/* 3) Center the form content */
+.container.login-page .content {
+  text-align: center;
+  padding-top: 24px;      /* same as before */
+}
+
+/* Force labels to span the same width as their inputs and align text to the right */
+
+
+
+/* 4) Force all labels under .login-page to be left-aligned LIGHT-BLUE (#DBEAFE) */
+.container.login-page label {
+  display: block;           
+  width: 100%;
+  max-width: 360px;          /* match the input’s max-width */
+  margin: 0 auto 4px auto;   /* center the label above the input, with 4px gap below */
+  text-align: left !important;  /* move “Email” / “Password” to the right edge */
+  color: #ffffff !important;     /* light-blue label text */
+  font-size: 1.2rem;
+  font-weight: 500;
+  padding: 0;       
+  padding-bottom: 20px;             
+}
+
+/* 5) Style the inputs themselves:
+   - Light-blue background (#DBEAFE)
+   - Blue border (#2563EB)
+   - Dark-blue placeholder text (#1E40AF)
+   - Dark-blue typed text (#1E40AF)
+*/
+.container.login-page input[type="email"],
+.container.login-page input[type="password"] {
+  width: 100%;
+  max-width: 360px;
+  background-color: #DBEAFE;  /* light-blue background */
+  border: 1px solid #2563EB;  /* blue border */
+  border-radius: 8px;
+  padding: 12px 16px;
+  font-size: 1rem;
+  color: #1E40AF;             /* typed text in dark-blue */
+  margin: 0 0 16px 0;         /* spacing below each field */
+  outline: none;
+}
+
+/* 6) When user focuses on an input: slightly darker border */
+.container.login-page input[type="email"]:focus,
+.container.login-page input[type="password"]:focus {
+  border-color: #1E40AF;      /* darker blue on focus */
+}
+
+/* 7) Placeholder text color inside inputs: dark-blue (#1E40AF) */
+.container.login-page input::placeholder {
+  color: #1E40AF;
+  opacity: 0.6;               /* a little fainter */
+}
+
+/* 8) Style the “Continue” button (white pill with blue text) */
+.container.login-page .btn {
+  width: 100%;
+  max-width: 360px;
+  background-color: #FFFFFF;   /* white “pill” */
+  color: #2563EB;              /* blue text */
+  border: none;                /* remove default button border */
+  border-radius: 25px;         /* fully rounded pill shape */
+  font-size: 1.5rem;           /* ~24px text */
+  font-weight: 700;
+  padding: 20px 0;             /* vertical padding (width is 100%) */
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  margin: 16px 0;              /* spacing above & below */
+  border: 1px solid #2563EB;   /* blue border */
+}
+
+/* On hover (and if not disabled), slightly tint the pill */
+.container.login-page .btn:hover:not(:disabled) {
+  background-color: #F3F4F6;   /* very light gray hover */
+}
+
+/* Disabled state: reduce opacity */
+.container.login-page .btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* 9) “Already have an account? / Don’t have an account?” text wrapper */
+.container.login-page .login-toggle {
+  color: #FFFFFF;             /* make the entire phrase white */
+  font-size: 1.1rem;
+  margin: 16px 0;
+  margin-bottom: 30px;
+}
+
+/* Ensure the “link” inside that toggle is also white and underlined */
+.container.login-page .login-toggle .link {
+  color: #FFFFFF;             /* white */
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+/* 10) Style the divider lines and “OR” text in white */
+.container.login-page .divider {
+  height: 1px;
+  background-color: #FFFFFF;   /* white line */
+  margin-bottom: 40px;
+}
+
+.container.login-page span {
+  color: #FFFFFF;              /* “OR” text in white */
+  margin: 0 8px;               /* two-space gap either side of OR */
+  margin-bottom: 30px;
+}
+
+/* 11) Style each OAuth button—
+   - Light-blue background (#DBEAFE)
+   - Dark-blue text (#1E40AF)
+   - Blue border (#2563EB)
+*/
+.container.login-page .oauth-btn {
+  margin-top: 20px;
+  background-color: #DBEAFE;   /* light-blue background */
+  color: #1E40AF;              /* dark-blue text */
+  border: 1px solid #2563EB;   /* blue border */
+  border-radius: 8px;
+  width: 100%;
+  max-width: 360px;
+  padding: 10px;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+/* On hover: slightly darker tinted background */
+.container.login-page .oauth-btn:hover:not(:disabled) {
+  background-color: #F3F4F6;
+}
+
+/* Icon inside each OAuth button */
+.container.login-page .oauth-btn img {
+  margin-right: 8px;
+}
+
+/* Last OAuth button should not have extra bottom margin */
+.container.login-page .oauth-btn:last-child {
+  margin-bottom: 0;
+}
