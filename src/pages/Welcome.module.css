@@ -1,0 +1,115 @@
+/* Root container */
+.screen {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
+  font-family: "Inter", sans-serif;
+}
+
+/* ───── Top section ───── */
+.top {
+  flex: 0 0 35vh; /* You can adjust this vh value if needed (e.g., 40vh) */
+  background-color: #3b82f6;          /* bright blue */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding-top: 1rem;
+}
+
+/* Style for the logo image */
+.logo {
+  width: 206px; /* Adjust as needed for your logo's size */
+  height: auto;   /* Maintain aspect ratio */
+  max-height: 182px; /* Optional: prevent logo from being too tall */
+  margin-bottom: 0.5rem;
+}
+
+.topTitle {
+    font: 600 2rem/1 "Inter"; 
+    color: #dbeafe; 
+    margin-top: .1rem; 
+}
+
+.topSubtitle{
+    font: 600 .8rem/1 "Inter";  
+    color: #dbeafe; 
+    margin-top: .25rem; 
+}
+
+/* ───── Bottom panel ───── */
+.bottom {
+  flex: 1;
+  background-color: #dbeafe;          /* light blue */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1.5rem 1rem;
+  text-align: center;
+  overflow-y: auto;
+}
+
+.welcomeSmall { 
+    font: 600 1.4rem/1 "Inter"; 
+    color: #1e40af; 
+    margin: 1rem 0 0.1rem;
+}
+.brandBig     { 
+    font: 600 2rem/1 "Inter"; 
+    color: #1e40af; 
+    margin: 0.9rem 0 1.5rem; }
+
+
+.tagline {
+  font: 600 1.7rem/1.25 "Inter";
+  color: #1e40af;
+  margin-bottom: 2rem;
+}
+
+.desc {
+  font-size: 18px;
+  line-height: 1.4;
+  color: #1e40af;
+  margin-bottom: 1.5rem;
+}
+
+/* ───── Icons ───── */
+.iconRow  { display: flex; gap: 2rem; margin-bottom: 1.5rem; }
+.iconItem { display: flex; flex-direction: column; align-items: center; }
+
+.iconWrapper {
+  width: 72px; height: 72px;
+  border-radius: 50%;
+  border: 2px solid #1e40af;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #FFFFFF; /* White background for icons */
+}
+
+/* New style for the icon images */
+.iconImage {
+  width: 50px;  /* Adjust if your PNGs are a different optimal size */
+  height: 50px; /* Adjust to maintain aspect ratio or desired fixed size */
+  object-fit: contain; /* Ensures the image scales nicely within the bounds */
+}
+
+.iconLabel { margin-top: .5rem; font: 600 .9rem/1 "Inter"; color: #1e40af; }
+
+/* ───── CTA Button ───── */
+.ctaButton {
+  background: #1e40af;               /* dark blue */
+  color: #fff;
+  border: none;
+  border-radius: 1.3rem;
+  padding: 1.7rem 2.5rem;
+  font: 600 1.8rem/1 "Inter";
+  cursor: pointer;
+  width: 100%;
+  max-width: 340px;
+  transition: opacity .15s ease-in-out;
+  margin-top: auto;
+  margin-bottom: 3rem;
+}
+.ctaButton:hover { opacity: .9; }
