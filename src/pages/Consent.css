@@ -1,0 +1,31 @@
+/* src/pages/Consent.css */
+
+/* Style for any button with class "btn" */
+.btn {
+  background-color: #2563eb;    /* blue background */
+  color: #FFFFFF;               /* white text */
+  border: none;                 /* remove default border */
+  border-radius: 25px;           /* slightly rounded corners */
+  cursor: pointer;              /* pointer cursor on hover */
+  transition: background-color 0.2s ease;
+}
+
+/* Additional styles for "large" variant */
+.btn-large {
+  padding: 20px 36px;           /* more padding, makes it “large” */
+  font-size: 1.8rem;          /* 18px-ish font */
+  font-weight: 600;
+  margin-bottom: 50px;
+  align-items: center;
+}
+
+/* Hover state */
+.btn:hover:not(:disabled) {
+  background-color: #2563EB;    /* darken on hover */
+}
+
+/* Disabled state */
+.btn:disabled {
+  opacity: 0.5;                 /* fade out when disabled */
+  cursor: not-allowed;
+}

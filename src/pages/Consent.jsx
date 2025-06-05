@@ -4,6 +4,8 @@ import { useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
 import { AppContext } from '../context/AppContext';
 import { STORAGE_KEYS } from '../utils/constants';
+import './Consent.css';  // ← import your new CSS here
+
 
 export default function Consent() {
   const { setConsent } = useContext(AppContext);
@@ -126,29 +128,44 @@ export default function Consent() {
           </ul>
         </div>
 
-        <div style={{ display: 'flex', alignItems: 'center', marginBottom: '30px' }}>
-          <input
-            type="checkbox"
-            checked={checked}
-            onChange={(e) => setChecked(e.target.checked)}
-            style={{ 
-              marginRight: '8px',
-             }}
-          />
-          <label style={{
-            fontSize: '1rem',
-            color: '#1E40AF'
-          }}>
-            I have read and understood the information above. I agree to use the ReMind-XR app as described and to have my
-            anonymized data collected for research purposes.
-          </label>
-        </div>
+       <div
+  style={{
+    display: 'flex',
+    alignItems: 'flex-start',
+    marginBottom: '8px',
+  }}
+>
+  <input
+  type="checkbox"
+  checked={checked}
+  onChange={(e) => setChecked(e.target.checked)}
+  style={{
+    marginRight: '8px',
+    marginTop: '4.5px',  // ← bump this up by 1–3px as needed
+  }}
+/>
 
-        <button className="btn btn-large" onClick={handleAgree} disabled={!checked} style={{
+  <label
+    style={{
+      fontSize: '1rem',
+      color: '#1E40AF',
+      lineHeight: 1.4,
+      marginBottom: '30px'
+    }}
+  >
+    I have read and understood the information above. I agree to use the ReMind-XR app as described
+    and to have my anonymized data collected for research purposes.
+  </label>
+</div>
 
-        }}>
-          I Agree
-        </button>
+<button
+  className="btn btn-large"
+  onClick={handleAgree}
+  disabled={!checked} 
+>
+  I Agree
+</button>
+
       </div>
     </div>
   );

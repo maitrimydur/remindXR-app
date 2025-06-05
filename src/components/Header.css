@@ -1,0 +1,28 @@
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  height: 56px;
+  background-color: #3B82F6; 
+}
+
+.header_back {
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  text-decoration: none;
+  font-size: 2rem;
+  color: #DBEAFE;
+  padding-top: 70px;
+  padding-bottom: 40px;
+  padding-right: 100px;
+}
+
+.header_title {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #DBEAFE;
+}
