@@ -1,108 +1,179 @@
 // src/utils/constants.js
+import appleImg from '../assets/apple.png';
+import breadImg from '../assets/bread.png';
+import milkImg from '../assets/milk.png';
+import cheeseImg from '../assets/cheese.png';
+import riceImg from '../assets/rice.png';
+import eggImg from '../assets/egg.png';
+import butterImg from '../assets/butter.png';
+import sugarImg from '../assets/sugar.png';
+
+import keysImg from '../assets/keys.png';
+import walletImg from '../assets/wallet.png';
+import phoneImg from '../assets/phone.png';
+import watchImg from '../assets/watch.png';
+import glassesImg from '../assets/glasses.png';
+import purseImg from '../assets/purse.png';
+import shoesImg from '../assets/shoes.png';
+import coatImg from '../assets/coat.png';
+
+import lampImg from '../assets/lamp.png';
+import chairImg from '../assets/chair.png';
+import tableImg from '../assets/table.png';
+import bedImg from '../assets/bed.png';
+import pillowImg from '../assets/pillow.png';
+import mirrorImg from '../assets/mirror.png';
+import rugImg from '../assets/rug.png';
+import sofaImg from '../assets/sofa.png';
+
+import dogImg from '../assets/dog.png';
+import catImg from '../assets/cat.png';
+import birdImg from '../assets/bird.png';
+import fishImg from '../assets/fish.png';
+import horseImg from '../assets/horse.png';
+import cowImg from '../assets/cow.png';
+import sheepImg from '../assets/sheep.webp';
+import pigImg from '../assets/pig.png';
+
+import shirtImg from '../assets/shirt.png';
+import pantsImg from '../assets/pants.png';
+import dressImg from '../assets/dress.png';
+import hatImg from '../assets/hat.png';
+import sockImg from '../assets/sock.png';
+import jacketImg from '../assets/jacket.png';
+import beltImg from '../assets/belt.png';
+import gloveImg from '../assets/glove.png';
+
+import carImg from '../assets/car.webp';
+import busImg from '../assets/bus.png';
+import bicycleImg from '../assets/bicycle.webp';
+import trainImg from '../assets/train.png';
+import truckImg from '../assets/truck.png';
+import boatImg from '../assets/boat.webp';
+import planeImg from '../assets/plane.png';
+import taxiImg from '../assets/taxi.png';
+
+import homeImg from '../assets/home.png';
+import schoolImg from '../assets/school.webp';
+import officeImg from '../assets/office.png';
+import storeImg from '../assets/store.webp';
+import parkImg from '../assets/park.png';
+import libraryImg from '../assets/library.webp';
+import hospitalImg from '../assets/hospital.png';
+import bankImg from '../assets/bank.png';
+
+import redImg from '../assets/red.png';
+import blueImg from '../assets/blue.png';
+import greenImg from '../assets/green.png';
+import yellowImg from '../assets/yellow.webp';
+import whiteImg from '../assets/white.webp';
+import blackImg from '../assets/black.png';
+import brownImg from '../assets/brown.png';
+import greyImg from '../assets/grey.png';
 
 export const WORD_LISTS = {
   1: {
-    title: 'Day 1 – Grocery Staples',
+    title: 'Grocery Staples',
     words: [
-      { text: 'Apple',    img: 'https://i.imgur.com/1UYjkhX.png' },
-      { text: 'Bread',    img: 'https://i.imgur.com/sZIEgeW.png' },
-      { text: 'Milk',     img: 'https://i.imgur.com/QfLL0jW.png' },
-      { text: 'Cheese',   img: 'https://i.imgur.com/z9Tv4WI.png' },
-      { text: 'Rice',     img: 'https://i.imgur.com/3BrXaZx.png' },
-      { text: 'Egg',      img: 'https://i.imgur.com/hRv8wGX.png' },
-      { text: 'Butter',   img: 'https://i.imgur.com/mtBuA8Q.png' },
-      { text: 'Sugar',    img: 'https://i.imgur.com/1f2iLVE.png' },
+      { text: 'Apple', img: appleImg},
+      { text: 'Bread', img: breadImg},
+      { text: 'Milk', img: milkImg},
+      { text: 'Cheese', img: cheeseImg},
+      { text: 'Rice', img: riceImg},
+      { text: 'Egg', img: eggImg},
+      { text: 'Butter', img: butterImg},
+      { text: 'Sugar', img: sugarImg},
     ]
   },
   2: {
-    title: 'Day 2 – Personal Items',
+    title: 'Personal Items',
     words: [
-      { text: 'Keys',   img: 'https://i.imgur.com/0fI2OAi.png' },
-      { text: 'Wallet', img: 'https://i.imgur.com/HXh7KkJ.png' },
-      { text: 'Phone',  img: 'https://i.imgur.com/S3w1mZt.png' },
-      { text: 'Watch',  img: 'https://i.imgur.com/7nHnFD0.png' },
-      { text: 'Glasses',img: 'https://i.imgur.com/5hBRR9Q.png' },
-      { text: 'Purse',  img: 'https://i.imgur.com/ytmQh5i.png' },
-      { text: 'Shoes',  img: 'https://i.imgur.com/2XhF6oE.png' },
-      { text: 'Coat',   img: 'https://i.imgur.com/Pk9xsrn.png' },
+      { text: 'Keys', img: keysImg },
+      { text: 'Wallet', img: walletImg},
+      { text: 'Phone', img: phoneImg},
+      { text: 'Watch', img: watchImg},
+      { text: 'Glasses', img: glassesImg},
+      { text: 'Purse', img: purseImg},
+      { text: 'Shoes', img: shoesImg},
+      { text: 'Coat', img: coatImg},
     ]
   },
   3: {
-    title: 'Day 3 – Household Objects',
+    title: 'Household Objects',
     words: [
-      { text: 'Lamp',    img: 'https://i.imgur.com/MD8ZxA2.png' },
-      { text: 'Chair',   img: 'https://i.imgur.com/hcCeNr2.png' },
-      { text: 'Table',   img: 'https://i.imgur.com/5HV71zj.png' },
-      { text: 'Bed',     img: 'https://i.imgur.com/1yMRRxt.png' },
-      { text: 'Pillow',  img: 'https://i.imgur.com/LE6rsqT.png' },
-      { text: 'Mirror',  img: 'https://i.imgur.com/TXXSE8Y.png' },
-      { text: 'Rug',     img: 'https://i.imgur.com/Aqmnm7A.png' },
-      { text: 'Sofa',    img: 'https://i.imgur.com/3LtbdX7.png' },
+      { text: 'Lamp', img: lampImg },
+      { text: 'Chair', img: chairImg },
+      { text: 'Table', img: tableImg },
+      { text: 'Bed', img: bedImg },
+      { text: 'Pillow', img:  pillowImg},
+      { text: 'Mirror', img: mirrorImg },
+      { text: 'Rug', img: rugImg },
+      { text: 'Sofa', img: sofaImg },
     ]
   },
   4: {
-    title: 'Day 4 – Common Animals',
+    title: 'Common Animals',
     words: [
-      { text: 'Dog',   img: 'https://i.imgur.com/PjA7Hde.png' },
-      { text: 'Cat',   img: 'https://i.imgur.com/VZbws7d.png' },
-      { text: 'Bird',  img: 'https://i.imgur.com/ENgbgba.png' },
-      { text: 'Fish',  img: 'https://i.imgur.com/Zi5uGdP.png' },
-      { text: 'Horse', img: 'https://i.imgur.com/3NqzTlD.png' },
-      { text: 'Cow',   img: 'https://i.imgur.com/03pbvqo.png' },
-      { text: 'Sheep', img: 'https://i.imgur.com/W5jmGP3.png' },
-      { text: 'Pig',   img: 'https://i.imgur.com/6vhdZ7U.png' },
+      { text: 'Dog', img: dogImg},
+      { text: 'Cat', img: catImg},
+      { text: 'Bird', img: birdImg},
+      { text: 'Fish', img: fishImg},
+      { text: 'Horse', img: horseImg},
+      { text: 'Cow', img: cowImg},
+      { text: 'Sheep', img: sheepImg},
+      { text: 'Pig', img: pigImg},
     ]
   },
   5: {
-    title: 'Day 5 – Clothing Articles',
+    title: 'Clothing Articles',
     words: [
-      { text: 'Shirt', img: 'https://i.imgur.com/Wm6tY1R.png' },
-      { text: 'Pants', img: 'https://i.imgur.com/Ymq6ylox.png' },
-      { text: 'Dress', img: 'https://i.imgur.com/4VdZLNR.png' },
-      { text: 'Hat',   img: 'https://i.imgur.com/LBKSJ1x.png' },
-      { text: 'Sock',  img: 'https://i.imgur.com/MGbcM9j.png' },
-      { text: 'Jacket',img: 'https://i.imgur.com/FSFNrrC.png' },
-      { text: 'Belt',  img: 'https://i.imgur.com/p5rYnUR.png' },
-      { text: 'Glove', img: 'https://i.imgur.com/CXCrQzb.png' },
+      { text: 'Shirt', img: shirtImg},
+      { text: 'Pants', img: pantsImg},
+      { text: 'Dress', img: dressImg},
+      { text: 'Hat', img: hatImg},
+      { text: 'Sock', img: sockImg},
+      { text: 'Jacket', img: jacketImg},
+      { text: 'Belt', img: beltImg},
+      { text: 'Glove', img: gloveImg},
     ]
   },
   6: {
-    title: 'Day 6 – Modes of Transport',
+    title: 'Modes of Transport',
     words: [
-      { text: 'Car',     img: 'https://i.imgur.com/u1nH7g6.png' },
-      { text: 'Bus',     img: 'https://i.imgur.com/TPChqG9.png' },
-      { text: 'Bicycle', img: 'https://i.imgur.com/5OKrxD2.png' },
-      { text: 'Train',   img: 'https://i.imgur.com/9L6qPid.png' },
-      { text: 'Truck',   img: 'https://i.imgur.com/oaKNZ4L.png' },
-      { text: 'Boat',    img: 'https://i.imgur.com/7oBWnTO.png' },
-      { text: 'Plane',   img: 'https://i.imgur.com/yiEVsnk.png' },
-      { text: 'Taxi',    img: 'https://i.imgur.com/UjYWnMO.png' },
+      { text: 'Car', img: carImg},
+      { text: 'Bus', img: busImg},
+      { text: 'Bicycle', img: bicycleImg},
+      { text: 'Train', img: trainImg},
+      { text: 'Truck', img: truckImg},
+      { text: 'Boat', img: boatImg},
+      { text: 'Plane', img: planeImg},
+      { text: 'Taxi', img: taxiImg},
     ]
   },
   7: {
-    title: 'Day 7 – Everyday Places',
+    title: 'Everyday Places',
     words: [
-      { text: 'Home',     img: 'https://i.imgur.com/8M8jSqE.png' },
-      { text: 'School',   img: 'https://i.imgur.com/d7redz5.png' },
-      { text: 'Office',   img: 'https://i.imgur.com/aeq6cPR.png' },
-      { text: 'Store',    img: 'https://i.imgur.com/jIoRZzE.png' },
-      { text: 'Park',     img: 'https://i.imgur.com/THPZYe4.png' },
-      { text: 'Library',  img: 'https://i.imgur.com/wU6n6My.png' },
-      { text: 'Hospital', img: 'https://i.imgur.com/BeVtNEL.png' },
-      { text: 'Bank',     img: 'https://i.imgur.com/8MTqgfw.png' },
+      { text: 'Home',img: homeImg},
+      { text: 'School', img: schoolImg},
+      { text: 'Office', img: officeImg},
+      { text: 'Store', img: storeImg},
+      { text: 'Park', img: parkImg},
+      { text: 'Library', img: libraryImg},
+      { text: 'Hospital', img: hospitalImg},
+      { text: 'Bank', img: bankImg},
     ]
   },
   8: {
-    title: 'Day 8 – Basic Colors',
+    title: 'Basic Colors',
     words: [
-      { text: 'Red',    img: 'https://i.imgur.com/SCqiO8D.png' },
-      { text: 'Blue',   img: 'https://i.imgur.com/AUlCBgP.png' },
-      { text: 'Green',  img: 'https://i.imgur.com/UbJx0sH.png' },
-      { text: 'Yellow', img: 'https://i.imgur.com/xFD3WkW.png' },
-      { text: 'White',  img: 'https://i.imgur.com/bbViEcy.png' },
-      { text: 'Black',  img: 'https://i.imgur.com/2pvp7ka.png' },
-      { text: 'Brown',  img: 'https://i.imgur.com/1SXR5EU.png' },
-      { text: 'Gray',   img: 'https://i.imgur.com/OPqiFCu.png' },
+      { text: 'Red', img: redImg },
+      { text: 'Blue', img: blueImg},
+      { text: 'Green', img: greenImg},
+      { text: 'Yellow', img: yellowImg},
+      { text: 'White', img: whiteImg},
+      { text: 'Black', img: blackImg},
+      { text: 'Brown', img: brownImg},
+      { text: 'Gray', img: greyImg},
     ]
   }
 };

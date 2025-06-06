@@ -27,7 +27,7 @@ export default function InputField({
           borderRadius: '8px',
           border: '1px solid var(--color-divider)',
           fontSize: '1rem',
-          backgroundColor: 'white',
+          backgroundColor: '#DBEAFE',
         }}
       />
     </div>
