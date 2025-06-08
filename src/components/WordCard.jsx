@@ -1,24 +1,41 @@
-// src/components/WordCard.jsx
 import React, { useEffect } from 'react';
-import './WordCard.css';   // ← add this
-
+import './WordCard.css';
 
 export default function WordCard({ word, imageUrl, onGotIt, onStruggled, disabled }) {
-  // Function to play TTS audio for the word
   const playAudio = () => {
-    if ('speechSynthesis' in window) {
+    if (!('speechSynthesis' in window)) return;
+    const synth = window.speechSynthesis;
+    synth.cancel();
+
+    const speak = () => {
       const utterance = new SpeechSynthesisUtterance(word);
-      window.speechSynthesis.speak(utterance);
+      utterance.lang = 'en-US';
+      const voices = synth.getVoices();
+      if (voices.length) {
+        utterance.voice = voices.find(v => v.lang.toLowerCase().includes('en')) || voices[0];
+      }
+      synth.speak(utterance);
+    };
+
+    // If voices are not yet loaded, wait for them
+    const voices = synth.getVoices();
+    if (!voices.length) {
+      const onVoicesChanged = () => {
+        speak();
+        synth.removeEventListener('voiceschanged', onVoicesChanged);
+      };
+      synth.addEventListener('voiceschanged', onVoicesChanged);
+    } else {
+      speak();
     }
   };
 
-  // Auto‐play audio once the component mounts
   useEffect(() => {
-    const timer = setTimeout(() => {
-      playAudio();
-    }, 500);
-    return () => clearTimeout(timer);
-  }, [word]);
+    // Trigger loading of voices
+    if ('speechSynthesis' in window) {
+      window.speechSynthesis.getVoices();
+    }
+  }, []);
 
   return (
     <div className="content">
@@ -27,12 +44,16 @@ export default function WordCard({ word, imageUrl, onGotIt, onStruggled, disable
         <img src={imageUrl} alt={word} />
       </div>
 
-      {/* Inlined Play Button */}
-      <div onClick={playAudio} className="play-button">
+      <button
+        type="button"
+        className="play-button"
+        onClick={playAudio}
+        aria-label={`Play pronunciation of ${word}`}
+      >
         <svg viewBox="0 0 24 24">
           <path d="M8 5v14l11-7z" fill="white" />
         </svg>
-      </div>
+      </button>
 
       <button className="choice-btn" onClick={onGotIt} disabled={disabled}>
         Got It

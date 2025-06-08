@@ -1,31 +1,84 @@
 /* src/pages/Consent.css */
 
-/* Style for any button with class "btn" */
+/* Force left-alignment inside the consent page */
+.consent-content {
+  text-align: left;
+}
+
+/* Consent text block (paragraphs) */
+.consent-content p {
+  color: #1E40AF;
+  font-size: 16px;
+  margin: 0;
+  margin-bottom: 30px;
+}
+
+/* Section headings */
+.consent-content h3 {
+  color: #1E40AF;
+  font-size: 20px;
+  font-weight: 600;
+  margin: 8px 0 12px;
+}
+
+/* The blue info box around steps 1–6 */
+.consent-box {
+  background-color: #9FC8F9;
+  border: 1px solid #1E40AF;
+  border-radius: 8px;
+  padding: 12px;
+  margin-bottom: 24px;
+}
+
+/* Headings inside the info box */
+.consent-box-heading {
+  color: #1E40AF;
+  font-size: 12px;
+  margin: 0 0 8px;
+}
+
+/* Lists inside the info box */
+.consent-list {
+  list-style-type: disc;
+  list-style-position: inside;  /* ← ensure the bullet is inside */
+  padding-left: 30px;
+  margin: 0 0 8px;
+  color: #1E40AF;
+  font-size: 12px;
+  text-align: left;             /* ← force left align */
+}
+
+/* Checkbox container */
+.consent-checkbox {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 30px;
+}
+
+.consent-checkbox input {
+  margin-right: 8px;
+  margin-top: 4px;
+}
+
+.consent-checkbox label {
+  color: #1E40AF;
+  font-size: 1rem;
+  line-height: 1.4;
+}
+
+/* Button styles */
 .btn {
-  background-color: #2563eb;    /* blue background */
-  color: #FFFFFF;               /* white text */
-  border: none;                 /* remove default border */
-  border-radius: 25px;           /* slightly rounded corners */
-  cursor: pointer;              /* pointer cursor on hover */
+  background-color: #2563eb;
+  color: #FFFFFF;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
   transition: background-color 0.2s ease;
 }
 
-/* Additional styles for "large" variant */
 .btn-large {
-  padding: 20px 36px;           /* more padding, makes it “large” */
-  font-size: 1.8rem;          /* 18px-ish font */
+  padding: 20px 36px;
+  font-size: 1.8rem;
   font-weight: 600;
   margin-bottom: 50px;
-  align-items: center;
-}
-
-/* Hover state */
-.btn:hover:not(:disabled) {
-  background-color: #2563EB;    /* darken on hover */
-}
-
-/* Disabled state */
-.btn:disabled {
-  opacity: 0.5;                 /* fade out when disabled */
-  cursor: not-allowed;
 }

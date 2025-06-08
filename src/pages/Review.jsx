@@ -12,53 +12,27 @@ export default function Review() {
   const { day } = useParams();
   const dayNum = parseInt(day, 10);
 
-  // Retrieve sessionData (may be undefined)
   const sessionData = state.sessions[dayNum];
+  const [responses, setResponses] = useState([]);
 
-  // Initialize local state to either sessionData.responses or empty array
-  const [responses, setResponses] = useState(() => {
-    return sessionData ? sessionData.responses : [];
-  });
-
-  // 1) If sessionData is missing, redirect when this effect runs
   useEffect(() => {
     if (!sessionData) {
       navigate(`/practice/${dayNum}`);
-    }
-  }, [sessionData, navigate, dayNum]);
-
-  // 2) Whenever sessionData changes (e.g. on mount or after edit), sync local responses
-  useEffect(() => {
-    if (sessionData) {
+    } else {
       setResponses(sessionData.responses);
     }
-  }, [sessionData]);
-
-  // Now that both hooks have been called unconditionally, we can safely return early
-  if (!sessionData) {
-    return null;
-  }
+  }, [sessionData, navigate, dayNum]);
 
   const handleChange = (index, newResult) => {
     const updated = responses.map((r, i) =>
       i === index ? { ...r, result: newResult } : r
     );
     setResponses(updated);
-
-    // Update context with edited responses
-    const newSessionData = {
-      ...sessionData,
-      responses: updated,
-    };
-    editSession(dayNum, newSessionData);
+    editSession(dayNum, { ...sessionData, responses: updated });
   };
 
   const handleComplete = () => {
-    if (dayNum === 1) {
-      navigate('/reminder');
-    } else {
-      navigate(`/summary/${dayNum}`);
-    }
+    navigate(`/summary/${dayNum}`);
   };
 
   return (

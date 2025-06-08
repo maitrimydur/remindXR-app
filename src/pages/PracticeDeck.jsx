@@ -9,47 +9,43 @@ import { WORD_LISTS } from '../utils/constants';
 export default function PracticeDeck() {
   const { state } = useContext(AppContext);
   const navigate = useNavigate();
-  const { day } = useParams(); 
+  const { day } = useParams();
   const dayNum = parseInt(day, 10);
-  const sessionData = state.sessions[dayNum];
+  const listObj = WORD_LISTS[dayNum];
+  const session = state.sessions[dayNum];
+  const totalWords = listObj.words.length;
+  const answered = session?.responses?.length || 0;
+  const isComplete = answered === totalWords;
 
   useEffect(() => {
-    // If day > 1, ensure previous day was completed:
     if (dayNum > 1 && !state.sessions[dayNum - 1]) {
       navigate(`/practice/${dayNum - 1}`);
     }
   }, [dayNum, state.sessions, navigate]);
 
-  const listObj = WORD_LISTS[dayNum];
   if (!listObj) {
     return (
       <div className="container">
         <Header title="Practice Deck" backTo="/" />
-        <div
-          className="content"
-          style={{
-            textAlign: 'center',
-            paddingTop: '24px',
-          }}
-        >
+        <div className="content" style={{ textAlign: 'center', paddingTop: '24px' }}>
           <p>Invalid day. Redirecting…</p>
         </div>
       </div>
     );
   }
 
+  const handleClick = () => {
+    if (!isComplete) {
+      navigate(`/card/${dayNum}/${answered}`);
+    } else {
+      navigate(`/review/${dayNum}`);
+    }
+  };
+
   return (
     <div className="container">
       <Header title="Practice Deck" backTo="/" />
-      <div
-        className="content"
-        style={{
-          display: 'flex',
-          justifyContent: 'center',
-          padding: '24px',
-        }}
-      >
-        {/* Blue card wrapper */}
+      <div className="content" style={{ display: 'flex', justifyContent: 'center', padding: '24px' }}>
         <div
           style={{
             backgroundColor: 'rgba(37, 99, 235, 0.9)',
@@ -60,7 +56,6 @@ export default function PracticeDeck() {
             boxSizing: 'border-box',
           }}
         >
-          {/* “Practice Session #X:” */}
           <h2
             style={{
               fontSize: '2.5rem',
@@ -73,8 +68,6 @@ export default function PracticeDeck() {
           >
             Practice Session #{dayNum}:
           </h2>
-
-          {/* “Grocery Staples” */}
           <h3
             style={{
               fontSize: '1.75rem',
@@ -88,8 +81,6 @@ export default function PracticeDeck() {
           >
             {listObj.title}
           </h3>
-
-          {/* Subtitle “Let’s review 8 practice questions.” */}
           <p
             style={{
               fontSize: '1rem',
@@ -100,10 +91,8 @@ export default function PracticeDeck() {
               fontWeight: 300,
             }}
           >
-            Let’s review {listObj.words.length} practice questions.
+            Let’s review {totalWords} practice questions.
           </p>
-
-          {/* Two‐column grid of word “pills” */}
           <div
             style={{
               display: 'grid',
@@ -123,17 +112,13 @@ export default function PracticeDeck() {
                   fontWeight: 400,
                   color: 'var(--color-primary)',
                   textAlign: 'center',
-                  cursor: 'default',
                   boxSizing: 'border-box',
-                  // If you ever want them to be clickable, swap <div> for a <button> or <Link>
                 }}
               >
                 {w.text}
               </div>
             ))}
           </div>
-
-          {/* “Begin” button (full‐width, darker blue) */}
           <Button
             large
             style={{
@@ -146,15 +131,9 @@ export default function PracticeDeck() {
               fontSize: '1.8rem',
               fontWeight: 600,
             }}
-            onClick={() => {
-              if (sessionData) {
-                navigate(`/review/${dayNum}`);
-              } else {
-                navigate(`/card/${dayNum}/0`);
-              }
-            }}
+            onClick={handleClick}
           >
-            {sessionData ? 'Review Answers' : 'Begin'}
+            {isComplete ? 'Review Answers' : 'Begin'}
           </Button>
         </div>
       </div>

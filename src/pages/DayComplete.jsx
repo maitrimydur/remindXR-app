@@ -3,6 +3,7 @@ import React from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
 import Button from '../components/Button';
+import './DayComplete.css';
 
 export default function DayComplete() {
   const { day } = useParams();
@@ -13,32 +14,28 @@ export default function DayComplete() {
     if (dayNum < 8) {
       navigate(`/practice/${dayNum + 1}`);
     } else {
-      // After Day 8, go to final Completion screen
       navigate('/completion');
     }
   };
 
   return (
-    <div className="container">
+    <div className="container day-complete-page">
       <Header title={`Day ${dayNum} Complete`} backTo={`/dashboard/${dayNum}`} />
-      <div className="content" style={{ paddingTop: '24px', textAlign: 'center' }}>
-        <h2
-          style={{
-            fontSize: '1.5rem',
-            fontWeight: 700,
-            color: 'var(--color-primary-dark)',
-            marginBottom: '16px',
-          }}
-        >
+
+      {/* semi-transparent card that ends 20px below “recorded” */}
+      <div className="content day-complete-content">
+        <h2 className="day-complete-title">
           Thank You for Day {dayNum}!
         </h2>
-        <p style={{ fontSize: '1rem', color: 'var(--color-text-dark)', marginBottom: '24px' }}>
+        <p className="day-complete-text">
           Your responses for Day {dayNum} have been recorded.
         </p>
-        <Button large onClick={handleNext}>
-          {dayNum < 8 ? `Start Day ${dayNum + 1}` : 'Finish'}
-        </Button>
       </div>
+
+      {/* button sits immediately below that box */}
+      <Button large className="day-complete-btn" onClick={handleNext}>
+        {dayNum < 8 ? `Start Day ${dayNum + 1}` : 'Finish'}
+      </Button>
     </div>
   );
 }
