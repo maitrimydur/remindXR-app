@@ -5,6 +5,7 @@ import Header from '../components/Header';
 import Button from '../components/Button';
 import { AppContext } from '../context/AppContext';
 import { WORD_LISTS } from '../utils/constants';
+import { ResponsiveContainer, PieChart, Pie, Cell, Tooltip } from 'recharts';
 
 export default function SessionSummary() {
   const { state } = useContext(AppContext);
@@ -21,15 +22,31 @@ export default function SessionSummary() {
   const responses = sessionData.responses;
   const total = WORD_LISTS[dayNum].words.length;
   const gotCount = responses.filter(r => r.result === 'got').length;
+  const wrongCount = total - gotCount;
 
-  const start = new Date(responses[0].timestamp);
-  const end = new Date(responses[responses.length - 1].timestamp);
-  const diffMs = end - start;
-  const minutes = Math.floor(diffMs / 60000);
-  const seconds = Math.ceil((diffMs % 60000) / 1000);
+  // Calculate total time by summing per-response durations
+  const totalSeconds = responses.reduce((acc, r) => {
+    const parts = r.timeSpent.split(' ');
+    let mins = 0;
+    let secs = 0;
+    parts.forEach(p => {
+      if (p.endsWith('m')) mins = parseInt(p.replace('m', ''), 10);
+      if (p.endsWith('s')) secs = parseInt(p.replace('s', ''), 10);
+    });
+    return acc + mins * 60 + secs;
+  }, 0);
+  const minutes = Math.floor(totalSeconds / 60);
+  const seconds = totalSeconds % 60;
   const timeSpent = `${minutes}m ${seconds}s`;
 
   const pct = ((gotCount / total) * 100).toFixed(1);
+
+  // Data for the pie chart
+  const data = [
+    { name: 'Correct', value: gotCount },
+    { name: 'Incorrect', value: wrongCount },
+  ];
+  const COLORS = ['#4CAF50', '#F44336'];
 
   const handleContinue = () => {
     navigate(`/dashboard/${dayNum}`);
@@ -39,6 +56,29 @@ export default function SessionSummary() {
     <div className="container">
       <Header title="Session Summary" backTo={`/review/${dayNum}`} />
       <div className="content" style={{ textAlign: 'center', paddingTop: '24px' }}>
+        {/* Pie chart showing correct vs incorrect */}
+        <div style={{ width: 200, height: 200, margin: '0 auto 24px' }}>
+          <ResponsiveContainer width="100%" height="100%">
+            <PieChart>
+              <Pie
+                data={data}
+                dataKey="value"
+                nameKey="name"
+                cx="50%"
+                cy="50%"
+                innerRadius={50}
+                outerRadius={80}
+                label
+              >
+                {data.map((entry, index) => (
+                  <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                ))}
+              </Pie>
+              <Tooltip />
+            </PieChart>
+          </ResponsiveContainer>
+        </div>
+
         <div style={{ marginBottom: '16px', fontSize: '1rem', color: 'var(--color-text-dark)' }}>
           Time Spent
         </div>

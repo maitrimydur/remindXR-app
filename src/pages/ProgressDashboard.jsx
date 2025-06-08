@@ -2,9 +2,17 @@
 import React, { useContext } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import Header from '../components/Header';
-import Chart from '../components/Chart';
 import Button from '../components/Button';
 import { AppContext } from '../context/AppContext';
+import {
+  ResponsiveContainer,
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+} from 'recharts';
 
 export default function ProgressDashboard() {
   const { state } = useContext(AppContext);
@@ -12,20 +20,16 @@ export default function ProgressDashboard() {
   const { day } = useParams();
   const dayNum = parseInt(day, 10);
 
-  // Gather days up to dayNum
-  const daysCompleted = Array.from({ length: dayNum }, (_, i) => i + 1);
-
-  // Build arrays for percentages and average times
-  const percents = [];
-  const avgTimes = [];
-  daysCompleted.forEach((d) => {
+  // Build data array: each completed day has day number, score %, and avg time in seconds
+  const data = Array.from({ length: dayNum }, (_, i) => {
+    const d = i + 1;
     const sess = state.sessions[d];
-    if (!sess) return;
+    if (!sess) {
+      return { day: d, score: 0, time: 0 };
+    }
     const total = sess.responses.length;
     const gotCount = sess.responses.filter((r) => r.result === 'got').length;
-    const p = Math.round((gotCount / total) * 100);
-    percents.push(p);
-
+    const score = Math.round((gotCount / total) * 100);
     const totalSeconds = sess.responses.reduce((acc, r) => {
       const [minsStr, secsStr] = r.timeSpent.split(' ');
       const m = parseInt(minsStr.replace('m', ''), 10);
@@ -33,19 +37,21 @@ export default function ProgressDashboard() {
       return acc + m * 60 + s;
     }, 0);
     const avgSec = Math.round(totalSeconds / total);
-    avgTimes.push(avgSec);
+    return { day: d, score, time: avgSec };
   });
 
   // Overall averages
-  const overallPercent = Math.round(percents.reduce((a, b) => a + b, 0) / percents.length);
-  const overallAvgSec = Math.round(avgTimes.reduce((a, b) => a + b, 0) / avgTimes.length);
+  const overallPercent =
+    data.reduce((sum, d) => sum + d.score, 0) / (data.length || 1);
+  const overallAvgSec = data.reduce((sum, d) => sum + d.time, 0) / (data.length || 1);
   const overallAvgMin = Math.floor(overallAvgSec / 60);
-  const overallAvgSecRem = overallAvgSec % 60;
+  const overallAvgSecRem = Math.round(overallAvgSec % 60);
 
   const handleContinue = () => {
-    // Show Day-complete thank you screen for this day
     navigate(`/day-complete/${dayNum}`);
   };
+
+  const maxTime = Math.max(...data.map((d) => d.time), 0);
 
   return (
     <div className="container">
@@ -62,26 +68,75 @@ export default function ProgressDashboard() {
           Progress Dashboard
         </h2>
 
-        {/* Retention Curve */}
+        {/* Average Score Chart */}
         <div style={{ marginBottom: '24px' }}>
-          <div style={{ fontSize: '1rem', color: 'var(--color-text-dark)', marginBottom: '8px' }}>
-            Retention Curve
+          <div
+            style={{
+              fontSize: '1rem',
+              color: 'var(--color-text-dark)',
+              marginBottom: '8px',
+            }}
+          >
+            Average Score
           </div>
-          <Chart dataPoints={percents} width={320} height={200} />
+          <div style={{ width: 320, height: 200, margin: '0 auto' }}>
+            <ResponsiveContainer width="100%" height="100%">
+              <LineChart data={data}>
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis
+                  dataKey="day"
+                  label={{ value: 'Day', position: 'insideBottomRight', offset: -5 }}
+                />
+                <YAxis domain={[0, 100]} tickFormatter={(v) => `${v}%`} />
+                <Tooltip
+                  formatter={(value, name) =>
+                    name === 'score' ? `${value}%` : `${value}s`
+                  }
+                />
+                <Line
+                  type="monotone"
+                  dataKey="score"
+                  stroke="#4CAF50"
+                  dot={{ r: 5 }}
+                />
+              </LineChart>
+            </ResponsiveContainer>
+          </div>
         </div>
 
-        {/* Average Time Chart (scaled to 0–100) */}
+        {/* Average Time Chart */}
         <div style={{ marginBottom: '24px' }}>
-          <div style={{ fontSize: '1rem', color: 'var(--color-text-dark)', marginBottom: '8px' }}>
-            Avg Time (sec)
+          <div
+            style={{
+              fontSize: '1rem',
+              color: 'var(--color-text-dark)',
+              marginBottom: '8px',
+            }}
+          >
+            Average Time (sec)
           </div>
-          <Chart
-            dataPoints={avgTimes.map((s) => Math.min(Math.round((s / 600) * 100), 100))}
-            width={320}
-            height={200}
-          />
+          <div style={{ width: 320, height: 200, margin: '0 auto' }}>
+            <ResponsiveContainer width="100%" height="100%">
+              <LineChart data={data}>
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis
+                  dataKey="day"
+                  label={{ value: 'Day', position: 'insideBottomRight', offset: -5 }}
+                />
+                <YAxis domain={[0, maxTime]} />
+                <Tooltip formatter={(value) => `${value}s`} />
+                <Line
+                  type="monotone"
+                  dataKey="time"
+                  stroke="#1e40af"
+                  dot={{ r: 5 }}
+                />
+              </LineChart>
+            </ResponsiveContainer>
+          </div>
         </div>
 
+        {/* Summary metrics */}
         <div
           style={{
             display: 'flex',
@@ -92,14 +147,34 @@ export default function ProgressDashboard() {
           }}
         >
           <div>
-            <div style={{ fontSize: '1rem', color: 'var(--color-text-dark)' }}>Avg. Score</div>
-            <div style={{ fontSize: '1.5rem', fontWeight: 700, color: 'var(--color-primary-dark)' }}>
-              {overallPercent}%
+            <div
+              style={{ fontSize: '1rem', color: 'var(--color-text-dark)' }}
+            >
+              Avg. Score
+            </div>
+            <div
+              style={{
+                fontSize: '1.5rem',
+                fontWeight: 700,
+                color: 'var(--color-primary-dark)',
+              }}
+            >
+              {Math.round(overallPercent)}%
             </div>
           </div>
           <div>
-            <div style={{ fontSize: '1rem', color: 'var(--color-text-dark)' }}>Avg. Time</div>
-            <div style={{ fontSize: '1.5rem', fontWeight: 700, color: 'var(--color-primary-dark)' }}>
+            <div
+              style={{ fontSize: '1rem', color: 'var(--color-text-dark)' }}
+            >
+              Avg. Time
+            </div>
+            <div
+              style={{
+                fontSize: '1.5rem',
+                fontWeight: 700,
+                color: 'var(--color-primary-dark)',
+              }}
+            >
               {overallAvgMin}m {overallAvgSecRem}s
             </div>
           </div>

@@ -1,41 +1,57 @@
-import React, { useEffect } from 'react';
+// src/components/WordCard.jsx
+import React, { useState, useEffect, useRef } from 'react';
 import './WordCard.css';
 
-export default function WordCard({ word, imageUrl, onGotIt, onStruggled, disabled }) {
-  const playAudio = () => {
-    if (!('speechSynthesis' in window)) return;
-    const synth = window.speechSynthesis;
-    synth.cancel();
-
-    const speak = () => {
-      const utterance = new SpeechSynthesisUtterance(word);
-      utterance.lang = 'en-US';
-      const voices = synth.getVoices();
-      if (voices.length) {
-        utterance.voice = voices.find(v => v.lang.toLowerCase().includes('en')) || voices[0];
-      }
-      synth.speak(utterance);
-    };
-
-    // If voices are not yet loaded, wait for them
-    const voices = synth.getVoices();
-    if (!voices.length) {
-      const onVoicesChanged = () => {
-        speak();
-        synth.removeEventListener('voiceschanged', onVoicesChanged);
-      };
-      synth.addEventListener('voiceschanged', onVoicesChanged);
-    } else {
-      speak();
-    }
-  };
+export default function WordCard({
+  word,
+  imageUrl,
+  onGotIt,
+  onStruggled,
+  disabled,
+}) {
+  const [audioUrl, setAudioUrl] = useState(null);
+  const audioRef = useRef(null);
 
   useEffect(() => {
-    // Trigger loading of voices
-    if ('speechSynthesis' in window) {
-      window.speechSynthesis.getVoices();
+    let cancelled = false;
+    async function fetchAudio() {
+      try {
+        const res = await fetch(
+          `https://api.dictionaryapi.dev/api/v2/entries/en/${encodeURIComponent(
+            word
+          )}`
+        );
+        if (!res.ok) throw new Error('No entry');
+        const data = await res.json();
+        // pick the first phonetic audio we find
+        const phonetic = data[0]?.phonetics.find(p => p.audio);
+        if (phonetic?.audio && !cancelled) {
+          setAudioUrl(phonetic.audio);
+        }
+      } catch (e) {
+        console.warn('📢 Pronunciation fetch failed, will use TTS', e);
+      }
     }
-  }, []);
+    fetchAudio();
+    return () => {
+      cancelled = true;
+    };
+  }, [word]);
+
+  const playAudio = () => {
+    if (audioUrl) {
+      audioRef.current
+        .play()
+        .catch(err => console.error('Audio playback failed:', err));
+    } else if ('speechSynthesis' in window) {
+      const utter = new SpeechSynthesisUtterance(word);
+      utter.lang = 'en-US';
+      window.speechSynthesis.cancel();
+      window.speechSynthesis.speak(utter);
+    } else {
+      console.error('No audio source available');
+    }
+  };
 
   return (
     <div className="content">
@@ -48,17 +64,32 @@ export default function WordCard({ word, imageUrl, onGotIt, onStruggled, disable
         type="button"
         className="play-button"
         onClick={playAudio}
+        disabled={disabled}
         aria-label={`Play pronunciation of ${word}`}
       >
-        <svg viewBox="0 0 24 24">
-          <path d="M8 5v14l11-7z" fill="white" />
+        <svg viewBox="0 0 24 24" width="24" height="24">
+          <path d="M8 5v14l11-7z" fill="currentColor" />
         </svg>
       </button>
 
-      <button className="choice-btn" onClick={onGotIt} disabled={disabled}>
+      {audioUrl && (
+        <audio ref={audioRef} src={audioUrl} preload="auto" hidden />
+      )}
+
+      <button
+        type="button"
+        className="choice-btn"
+        onClick={onGotIt}
+        disabled={disabled}
+      >
         Got It
       </button>
-      <button className="choice-btn" onClick={onStruggled} disabled={disabled}>
+      <button
+        type="button"
+        className="choice-btn"
+        onClick={onStruggled}
+        disabled={disabled}
+      >
         Struggled
       </button>
     </div>
