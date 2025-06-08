@@ -1,4 +1,5 @@
 // src/utils/constants.js
+// Day 1 Images
 import appleImg from '../assets/apple.png';
 import breadImg from '../assets/bread.png';
 import milkImg from '../assets/milk.png';
@@ -8,6 +9,7 @@ import eggImg from '../assets/egg.png';
 import butterImg from '../assets/butter.png';
 import sugarImg from '../assets/sugar.png';
 
+// Day 2 Images
 import keysImg from '../assets/keys.png';
 import walletImg from '../assets/wallet.png';
 import phoneImg from '../assets/phone.png';
@@ -17,6 +19,7 @@ import purseImg from '../assets/purse.png';
 import shoesImg from '../assets/shoes.png';
 import coatImg from '../assets/coat.png';
 
+// Day 3 Images
 import lampImg from '../assets/lamp.png';
 import chairImg from '../assets/chair.png';
 import tableImg from '../assets/table.png';
@@ -26,6 +29,7 @@ import mirrorImg from '../assets/mirror.png';
 import rugImg from '../assets/rug.png';
 import sofaImg from '../assets/sofa.png';
 
+// Day 4 Images
 import dogImg from '../assets/dog.png';
 import catImg from '../assets/cat.png';
 import birdImg from '../assets/bird.png';
@@ -35,6 +39,7 @@ import cowImg from '../assets/cow.png';
 import sheepImg from '../assets/sheep.webp';
 import pigImg from '../assets/pig.png';
 
+// Day 5 Images
 import shirtImg from '../assets/shirt.png';
 import pantsImg from '../assets/pants.png';
 import dressImg from '../assets/dress.png';
@@ -44,6 +49,7 @@ import jacketImg from '../assets/jacket.png';
 import beltImg from '../assets/belt.png';
 import gloveImg from '../assets/glove.png';
 
+// Day 6 Images
 import carImg from '../assets/car.webp';
 import busImg from '../assets/bus.png';
 import bicycleImg from '../assets/bicycle.webp';
@@ -53,6 +59,7 @@ import boatImg from '../assets/boat.webp';
 import planeImg from '../assets/plane.png';
 import taxiImg from '../assets/taxi.png';
 
+// Day 7 Images
 import homeImg from '../assets/home.png';
 import schoolImg from '../assets/school.webp';
 import officeImg from '../assets/office.png';
@@ -62,6 +69,7 @@ import libraryImg from '../assets/library.webp';
 import hospitalImg from '../assets/hospital.png';
 import bankImg from '../assets/bank.png';
 
+// Day 8 Images
 import redImg from '../assets/red.png';
 import blueImg from '../assets/blue.png';
 import greenImg from '../assets/green.png';

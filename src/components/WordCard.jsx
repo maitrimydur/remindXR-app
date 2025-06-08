@@ -1,5 +1,7 @@
 // src/components/WordCard.jsx
 import React, { useEffect } from 'react';
+import './WordCard.css';   // ← add this
+
 
 export default function WordCard({ word, imageUrl, onGotIt, onStruggled, disabled }) {
   // Function to play TTS audio for the word
@@ -19,14 +21,10 @@ export default function WordCard({ word, imageUrl, onGotIt, onStruggled, disable
   }, [word]);
 
   return (
-    <div className="content" style={{ paddingTop: '24px' }}>
+    <div className="content">
       <div className="word-title">{word}</div>
       <div className="word-image">
-        <img
-          src={imageUrl}
-          alt={word}
-          style={{ maxWidth: '100%', maxHeight: '100%', objectFit: 'contain' }}
-        />
+        <img src={imageUrl} alt={word} />
       </div>
 
       {/* Inlined Play Button */}

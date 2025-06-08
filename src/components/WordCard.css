@@ -1,0 +1,84 @@
+/* src/components/WordCard.css */
+
+/* Container for the whole card */
+.content {
+  padding-top: 24px;
+  text-align: center;
+}
+
+/* Word title styling */
+.word-title {
+  font-size: 2.5rem;
+  font-weight: 600;
+  margin-bottom: 25px;
+  margin-top: 5px;
+  color: var(--color-primary-dark);
+}
+
+.word-image {
+  width: 275px;          /* ← increase this to grow the circle */
+  height: 275px;         /* ← match width exactly */
+  border-radius: 50%;    /* 50% of a square = perfect circle */
+  background-color: #60A5FA;
+  margin: 24px auto;     /* more breathing room */
+  overflow: hidden;      /* clip the image inside */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.word-image img {
+  width: 70%;            /* scale your image down a bit inside */
+  height: auto;
+  object-fit: contain;
+}
+
+
+/* Center the play button under the circle */
+.play-button {
+  display: flex;             /* make it a flex container again */
+  align-items: center;       /* vertical centering */
+  justify-content: center;   /* horizontal centering */
+  width: 100px;
+  height: 100px;
+  margin: 16px auto;         /* auto left/right centers the block */
+  background-color: var(--color-primary);
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  margin-bottom: 30px;
+}
+
+.play-button svg {
+  width: 75px;    /* tweak to taste */
+  height: 75px;   /* tweak to taste */
+}
+
+/* Stack “Got It” and “Struggled” vertically, centered */
+.choice-btn {
+  display: block;            /* each button takes its own line */
+  width: 90%;                /* optional: give them a consistent width */
+  height: 10%;
+  max-width: 600px;          /* optional cap */
+  margin: 12px auto;         /* vertical spacing + auto horizontal centering */
+  margin-bottom: 20px;
+  padding: 12px 20px;
+  font-size: 1.7rem;
+  font-weight: 550;
+  background-color: #1e40af;
+  color: #ffffff;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.choice-btn:disabled {
+  background-color: #93c5fd;
+  cursor: not-allowed;
+}
+
+.choice-btn:not(:disabled):hover {
+  background-color: #1e40af;
+  transform: translateY(-2px);
+}
