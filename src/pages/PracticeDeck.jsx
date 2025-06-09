@@ -99,7 +99,7 @@ export default function PracticeDeck() {
               display: 'grid',
               gridTemplateColumns: '1fr 1fr',
               gap: '30px',
-              marginBottom: '50px',
+              marginBottom: '30px',
             }}
           >
             {listObj.words.map((w, i) => (
