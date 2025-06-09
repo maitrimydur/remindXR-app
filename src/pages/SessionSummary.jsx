@@ -1,4 +1,3 @@
-// src/pages/SessionSummary.jsx
 import React, { useContext } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
@@ -6,6 +5,7 @@ import Button from '../components/Button';
 import { AppContext } from '../context/AppContext';
 import { WORD_LISTS } from '../utils/constants';
 import { ResponsiveContainer, PieChart, Pie, Cell, Tooltip } from 'recharts';
+import './SessionSummary.css';
 
 export default function SessionSummary() {
   const { state } = useContext(AppContext);
@@ -13,6 +13,7 @@ export default function SessionSummary() {
   const { day } = useParams();
   const dayNum = parseInt(day, 10);
 
+  // Redirect if no session data
   const sessionData = state.sessions[dayNum];
   if (!sessionData) {
     navigate(`/practice/${dayNum}`);
@@ -24,14 +25,13 @@ export default function SessionSummary() {
   const gotCount = responses.filter(r => r.result === 'got').length;
   const wrongCount = total - gotCount;
 
-  // Calculate total time by summing per-response durations
+  // Sum up total time in seconds
   const totalSeconds = responses.reduce((acc, r) => {
-    const parts = r.timeSpent.split(' ');
     let mins = 0;
     let secs = 0;
-    parts.forEach(p => {
-      if (p.endsWith('m')) mins = parseInt(p.replace('m', ''), 10);
-      if (p.endsWith('s')) secs = parseInt(p.replace('s', ''), 10);
+    r.timeSpent.split(' ').forEach(p => {
+      if (p.endsWith('m')) mins = parseInt(p, 10);
+      if (p.endsWith('s')) secs = parseInt(p, 10);
     });
     return acc + mins * 60 + secs;
   }, 0);
@@ -41,12 +41,11 @@ export default function SessionSummary() {
 
   const pct = ((gotCount / total) * 100).toFixed(1);
 
-  // Data for the pie chart
   const data = [
     { name: 'Correct', value: gotCount },
     { name: 'Incorrect', value: wrongCount },
   ];
-  const COLORS = ['#4CAF50', '#F44336'];
+  const COLORS = ['#1E40AF', '#60A5FA'];
 
   const handleContinue = () => {
     navigate(`/dashboard/${dayNum}`);
@@ -54,47 +53,76 @@ export default function SessionSummary() {
 
   return (
     <div className="container">
-      <Header title="Session Summary" backTo={`/review/${dayNum}`} />
-      <div className="content" style={{ textAlign: 'center', paddingTop: '24px' }}>
-        {/* Pie chart showing correct vs incorrect */}
-        <div style={{ width: 200, height: 200, margin: '0 auto 24px' }}>
-          <ResponsiveContainer width="100%" height="100%">
-            <PieChart>
-              <Pie
-                data={data}
-                dataKey="value"
-                nameKey="name"
-                cx="50%"
-                cy="50%"
-                innerRadius={50}
-                outerRadius={80}
-                label
-              >
-                {data.map((entry, index) => (
-                  <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-                ))}
-              </Pie>
-              <Tooltip />
-            </PieChart>
-          </ResponsiveContainer>
+      <Header title="Session" backTo={`/review/${dayNum}`} />
+
+      <div className="content session-summary-content">
+        {/* Title Card */}
+        <div className="session-summary-title-card">
+          <h2>Session Summary</h2>
         </div>
 
-        <div style={{ marginBottom: '16px', fontSize: '1rem', color: 'var(--color-text-dark)' }}>
-          Time Spent
-        </div>
-        <div style={{ marginBottom: '24px', fontSize: '1.5rem', fontWeight: 700, color: 'var(--color-text-dark)' }}>
-          {timeSpent}
+        {/* Stats Card */}
+        <div className="session-summary-stats-card">
+          <div className="stats-row">
+            <span className="label">Time Spent</span>
+            <span className="value">{timeSpent}</span>
+          </div>
+
+          <div className="stats-row">
+            <span className="label">Score</span>
+            <span className="value">{gotCount}/{total} ({pct}%)</span>
+          </div>
+
+          {/* Chart + Legend */}
+          <div className="chart-section">
+            <div className="session-summary-chart-wrapper">
+              <ResponsiveContainer width="100%" height="100%">
+                <PieChart>
+                  <Pie
+                    data={data}
+                    dataKey="value"
+                    nameKey="name"
+                    cx="50%"
+                    cy="50%"
+                    innerRadius={40}
+                    outerRadius={60}
+                    label
+                  >
+                    {data.map((entry, i) => (
+                      <Cell key={`cell-${i}`} fill={COLORS[i % COLORS.length]} />
+                    ))}
+                  </Pie>
+                  <Tooltip />
+                </PieChart>
+              </ResponsiveContainer>
+            </div>
+
+            <div className="legend">
+              <div className="legend-item">
+                <span
+                  className="legend-swatch"
+                  style={{ backgroundColor: COLORS[0] }}
+                />
+                Got It
+              </div>
+              <div className="legend-item">
+                <span
+                  className="legend-swatch"
+                  style={{ backgroundColor: COLORS[1] }}
+                />
+                Struggled
+              </div>
+            </div>
+          </div>
         </div>
 
-        <div style={{ marginBottom: '16px', fontSize: '1rem', color: 'var(--color-text-dark)' }}>
-          Score
-        </div>
-        <div style={{ fontSize: '1.5rem', fontWeight: 700, color: 'var(--color-primary-dark)', marginBottom: '8px' }}>
-          {gotCount}/{total} ({pct}%)
-        </div>
-
-        <Button large onClick={handleContinue}>
-          View Progress
+        {/* Continue Button */}
+        <Button
+          large
+          className="session-summary-button"
+          onClick={handleContinue}
+        >
+          Continue
         </Button>
       </div>
     </div>

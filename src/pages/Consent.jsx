@@ -22,7 +22,7 @@ export default function Consent() {
       <Header title="Consent" backTo="/" color="#DBEAFE" />
 
       <div className="content consent-content" style={{ paddingTop: '20px' }}>
-        <p style={{ marginTop: '20px', marginBottom: '30px', color: '#1E40AF', fontSize: 16 }}>
+        <p style={{ marginTop: '20px', marginBottom: '30px', color: '#1E40AF', fontSize: 16, textAlign: 'left' }}>
           Thank you for your interest in participating in the ReMind-XR memory training program.
           Before you begin, please read this consent form carefully. We will ask you to indicate your
           agreement by checking the box at the end.
@@ -33,14 +33,16 @@ export default function Consent() {
           marginBottom: '12px',
           color: '#1E40AF',
           fontWeight: 600,
-          fontSize: 20
+          fontSize: 20,
+          textAlign: 'left',
         }}>
           Purpose of Study
         </h3>
         <p style={{
           marginBottom: '30px',
           color: '#1E40AF',
-          fontSize: 16
+          fontSize: 16,
+          textAlign: 'left'
         }}>
           You are being invited to take part in a research study of a new multisensory, load-adaptive
           spaced-repetition app designed to help teens and young adults recovering from traumatic brain
@@ -50,7 +52,10 @@ export default function Consent() {
         </p>
 
         <div className="consent-box">
-          <p className="consent-box-heading">1. What You Will Do</p>
+          <p className="consent-box-heading" style={{
+            textAlign: 'left',
+          }}>
+              1. What You Will Do</p>
           <ul className="consent-list">
             <li>Use the ReMind-XR app for 8 days of structured memory-training sessions.</li>
             <li>
@@ -68,7 +73,9 @@ export default function Consent() {
             </li>
           </ul>
 
-          <p className="consent-box-heading">2. Time Commitment</p>
+          <p className="consent-box-heading" style={{
+            textAlign: 'left',
+          }}>2. Time Commitment</p>
           <ul className="consent-list">
             <li>Day 0 (Baseline & Practice): ~20 minutes</li>
             <li>Days 1–7 (Sessions): ~10 minutes per session + ~1 minute effort rating</li>
@@ -76,7 +83,9 @@ export default function Consent() {
             <li>Total: Approximately 1.5 hours over 8 days</li>
           </ul>
 
-          <p className="consent-box-heading">3. Risks & Discomforts</p>
+          <p className="consent-box-heading" style={{
+            textAlign: 'left',
+          }}>3. Risks & Discomforts</p>
           <ul className="consent-list">
             <li>You may experience mild mental fatigue or frustration during recall tasks.</li>
             <li>
@@ -85,7 +94,9 @@ export default function Consent() {
             </li>
           </ul>
 
-          <p className="consent-box-heading">4. Potential Benefits</p>
+          <p className="consent-box-heading" style={{
+            textAlign: 'left',
+          }}>4. Potential Benefits</p>
           <ul className="consent-list">
             <li>
               You may notice improvements in your ability to recall practiced material and in everyday-
@@ -97,14 +108,18 @@ export default function Consent() {
             </li>
           </ul>
 
-          <p className="consent-box-heading">5. Confidentiality</p>
+          <p className="consent-box-heading" style={{
+            textAlign: 'left',
+          }}>5. Confidentiality</p>
           <ul className="consent-list">
             <li>All performance data are anonymized; we assign you a unique study ID.</li>
             <li>No personal identifying information (name, email) is stored with your memory logs.</li>
             <li>Study data are stored on encrypted servers and accessed only by the research team.</li>
           </ul>
 
-          <p className="consent-box-heading">6. Voluntary Participation</p>
+          <p className="consent-box-heading" style={{
+            textAlign: 'left',
+          }}>6. Voluntary Participation</p>
           <ul className="consent-list">
             <li>Your participation is entirely voluntary.</li>
             <li>You may withdraw at any time without consequence.</li>
@@ -121,7 +136,9 @@ export default function Consent() {
             checked={checked}
             onChange={(e) => setChecked(e.target.checked)}
           />
-          <label>
+          <label style={{
+            textAlign: 'left',
+          }}>
             I have read and understood the information above. I agree to use the ReMind-XR app as
             described and to have my anonymized data collected for research purposes.
           </label>

@@ -1,0 +1,94 @@
+/* src/pages/ProgressDashboard.css */
+
+/* Entire page background becomes the accent blue */
+.progress-dashboard-page {
+  background-color: var(--color-accent);
+  min-height: 100vh;
+}
+
+/* Content wrapper, pulled up under the header bar */
+.progress-dashboard-content {
+  position: relative;
+  top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 24px;
+  width: 100%;
+}
+
+/* One big white card around everything except the button */
+.progress-dashboard-card {
+  background-color: #ffffff;
+  width: 90%;
+  max-width: 420px;
+  border-radius: 12px;
+  padding: 24px 16px 32px;
+  margin-bottom: 24px;
+  box-sizing: border-box;
+}
+
+/* Card title */
+.progress-dashboard-card h2 {
+  margin: 0 0 16px;
+  font-size: 3rem;
+  font-weight: 600;
+  text-align: center;
+  color: var(--color-primary-dark);
+}
+
+/* Labels above each chart */
+.chart-label {
+  font-size: 1.5rem;
+  color: #3B82F6;
+  margin-bottom: 20px;
+  text-align: left;
+  
+}
+
+/* Chart container (same size for both) */
+.progress-dashboard-chart-wrapper {
+  width: 100%;
+  height: 200px;
+  margin: 0 auto 16px;
+}
+
+/* The row with Avg. Score / Avg. Time */
+.summary-metrics {
+  display: flex;
+  justify-content: space-around;
+  padding-top: 8px;
+}
+.metric {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.metric-label {
+  font-size: 1.25rem;
+  color: #3B82F6;
+  margin-bottom: 4px;
+  margin-bottom: 12px;
+}
+.metric-value {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--color-primary-dark);
+}
+
+/* The Continue button becomes a white pill */
+.progress-dashboard-button {
+  width: 90%;
+  max-width: 420px;
+  margin: 0 auto;
+  background-color: #ffffff;
+  color: #2563EB;
+  border-radius: 25px;
+  padding: 16px;
+  border: none;
+  height: 80px;
+  font-size: 2rem;
+}
+.progress-dashboard-button:hover {
+  background-color: var(--color-accent-light);
+}

@@ -1,14 +1,17 @@
 /* src/pages/DayComplete.css */
+
 .day-complete-page {
   background-color: #dbeafe;
   min-height: 100vh;
 }
 
-.content.day-complete-content {
+/* Override global .content flex so card hugs its content */
+.day-complete-content {
+  flex: 0 0 auto;
   background-color: rgba(96, 165, 250, 0.5);
   border: 1px solid #1E40AF;
   border-radius: 12px;
-  padding: 24px 24px 20px;
+  padding: 24px 24px 50px; /* bottom padding set to 50px under text */
   width: 100%;
   max-width: 360px;
   margin: 32px auto 20px;
@@ -35,16 +38,17 @@
   display: block;
   width: 100%;
   max-width: 360px;
-  margin: 20px auto 0; /* 20px gap below the card */
+  margin: 20px auto 0;
   padding: 20px 0;
   font-size: 1.25rem;
   font-weight: 600;
   color: #FFFFFF;
   background-color: #1E40AF;
   border: none;
-  border-radius: 24px;
+  border-radius: 25px;
   cursor: pointer;
   transition: background-color 0.2s ease, transform 0.1s ease;
+  margin-bottom: 50px;
 }
 
 .day-complete-btn:active {

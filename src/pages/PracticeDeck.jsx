@@ -52,6 +52,7 @@ export default function PracticeDeck() {
             borderRadius: '24px',
             padding: '24px',
             maxWidth: '380px',
+            maxHeight: '800px',
             width: '100%',
             boxSizing: 'border-box',
           }}
@@ -86,7 +87,7 @@ export default function PracticeDeck() {
               fontSize: '1rem',
               color: '#DBEAFE',
               margin: 0,
-              marginBottom: '30px',
+              marginBottom: '20px',
               textAlign: 'center',
               fontWeight: 300,
             }}
@@ -98,7 +99,7 @@ export default function PracticeDeck() {
               display: 'grid',
               gridTemplateColumns: '1fr 1fr',
               gap: '30px',
-              marginBottom: '32px',
+              marginBottom: '50px',
             }}
           >
             {listObj.words.map((w, i) => (
@@ -122,7 +123,7 @@ export default function PracticeDeck() {
           <Button
             large
             style={{
-              marginTop: '15px',
+              marginTop: '0px',
               width: '100%',
               backgroundColor: 'var(--color-primary-dark)',
               color: '#ffffff',

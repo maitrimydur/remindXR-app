@@ -67,8 +67,12 @@ html, body, #root {
   background-color: var(--color-accent);
 }
 .btn-large {
-  font-size: 1.25rem; /* 20px */
+  font-size: 1.75rem; /* 20px */
   padding: 18px;
+  background-color: #1E40AF;
+  border-radius: 25px;
+  height: 70px;
+  margin-top: 25px;
 }
 
 .container {
@@ -123,32 +127,41 @@ html, body, #root {
 
 /* Word title */
 .word-title {
-  font-size: 2rem; /* 32px */
+  font-size: 2.5rem; /* 32px */
   font-weight: 700;
-  color: var(--color-text-dark);
+  color: #1e40af;
   text-align: center;
-  margin-bottom: 12px;
+  margin-bottom: 20px;
+
 }
 
 /* Image placeholder wrapper */
 .word-image {
-  width: 200px;
-  height: 200px;
+  width: 250px;
+  height: 250px;
   background-color: var(--color-accent-light);
-  border-radius: 100px;
+  border-radius: 300px;
   margin: 0 auto 16px;
   display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
+  margin-bottom: 30px;
+  margin-top: 20px;
 }
+
+.word-image img {
+  width: 80%;
+  height: 80%;
+}
+
 
 /* Play button circle */
 .play-button {
-  width: 64px;
-  height: 64px;
-  background-color: var(--color-primary);
-  border-radius: 32px;
+  width: 100px;
+  height: 100px;
+  background-color: #2563EB;
+  border-radius: 100px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -156,24 +169,25 @@ html, body, #root {
   cursor: pointer;
 }
 .play-button svg {
-  width: 32px;
-  height: 32px;
-  fill: white;
+  width: 90px;
+  height: 90px;
+  color: white;
 }
 
 /* Got It / Struggled buttons */
 .choice-btn {
-  background-color: var(--color-primary);
+  background-color: #1E40AF;
   color: white;
   font-weight: 700;
   border: none;
-  border-radius: 8px;
+  border-radius: 25px;
   padding: 14px;
   width: 100%;
   max-width: 300px;
   margin: 8px auto;
-  font-size: 1rem;
+  font-size: 1.5rem;
   cursor: pointer;
+  margin-bottom: 20px;
 }
 .choice-btn:hover {
   background-color: var(--color-accent);
@@ -200,18 +214,19 @@ html, body, #root {
 /* Table / List styling for Review page */
 .review-list {
   width: 100%;
-  border-top: 1px solid var(--color-divider);
+  border-top: 1px solid #60A5FA;
 }
 .review-row {
   display: flex;
   align-items: center;
   padding: 12px 0;
-  border-bottom: 1px solid var(--color-divider);
+  border-bottom: 1px solid #60A5FA;
 }
 .review-word {
-  font-size: 1.125rem;
-  font-weight: 600;
-  color: var(--color-text-dark);
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #1E40AF;
+  padding-left: 20px;
 }
 
 /* Simple toggle styling */

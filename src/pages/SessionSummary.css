@@ -1,0 +1,98 @@
+/* src/pages/SessionSummary.css */
+
+/* --- Pull the summary card up under the Header bar --- */
+.session-summary-content {
+  position: relative;
+  top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 24px;
+  width: 100%;
+}
+
+/* --- Title card (“Session Summary”) --- */
+.session-summary-title-card {
+  background-color: var(--color-primary-dark);
+  color: #fff;
+  width: 90%;
+  max-width: 420px;
+  border-radius: 12px;
+  padding: 24px;
+  text-align: center;
+  margin-bottom: 30px;
+}
+.session-summary-title-card h2 {
+  margin: 0;
+  font-size: 2.75rem;
+  font-weight: 650;
+}
+
+/* --- Stats card (light blue background) --- */
+.session-summary-stats-card {
+  background-color: #C1D9FA ;
+  width: 90%;
+  max-width: 420px;
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 16px;
+  box-sizing: border-box;
+}
+
+/* --- Two labelled rows: Time Spent / Score --- */
+.stats-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+.stats-row .label {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--color-primary-dark);
+}
+.stats-row .value {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--color-primary-dark);
+}
+
+/* --- Chart + legend side-by-side --- */
+.chart-section {
+  margin-top: 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.session-summary-chart-wrapper {
+  width: 120px;
+  height: 120px;
+  flex-shrink: 0;
+}
+.legend {
+  display: flex;
+  flex-direction: column;
+  margin-left: 16px;
+}
+.legend-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+  font-size: 1.5rem;
+  color: var(--color-primary-dark);
+}
+.legend-swatch {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  margin-right: 8px;
+}
+
+/* --- Full-width “Continue” button --- */
+.session-summary-button {
+  width: 90%;
+  max-width: 420px;
+  border-radius: 25px;
+  padding: 16px;
+  height: 75px;
+}

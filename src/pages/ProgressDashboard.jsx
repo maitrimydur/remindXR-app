@@ -13,6 +13,7 @@ import {
   CartesianGrid,
   Tooltip,
 } from 'recharts';
+import './ProgressDashboard.css';
 
 export default function ProgressDashboard() {
   const { state } = useContext(AppContext);
@@ -20,167 +21,109 @@ export default function ProgressDashboard() {
   const { day } = useParams();
   const dayNum = parseInt(day, 10);
 
-  // Build data array: each completed day has day number, score %, and avg time in seconds
+  // Build per-day data
   const data = Array.from({ length: dayNum }, (_, i) => {
     const d = i + 1;
     const sess = state.sessions[d];
-    if (!sess) {
-      return { day: d, score: 0, time: 0 };
-    }
+    if (!sess) return { day: d, score: 0, time: 0 };
+
     const total = sess.responses.length;
-    const gotCount = sess.responses.filter((r) => r.result === 'got').length;
+    const gotCount = sess.responses.filter(r => r.result === 'got').length;
     const score = Math.round((gotCount / total) * 100);
+
     const totalSeconds = sess.responses.reduce((acc, r) => {
-      const [minsStr, secsStr] = r.timeSpent.split(' ');
-      const m = parseInt(minsStr.replace('m', ''), 10);
-      const s = parseInt(secsStr.replace('s', ''), 10);
+      const [mStr, sStr] = r.timeSpent.split(' ');
+      const m = parseInt(mStr, 10);
+      const s = parseInt(sStr, 10);
       return acc + m * 60 + s;
     }, 0);
     const avgSec = Math.round(totalSeconds / total);
+
     return { day: d, score, time: avgSec };
   });
 
   // Overall averages
   const overallPercent =
     data.reduce((sum, d) => sum + d.score, 0) / (data.length || 1);
-  const overallAvgSec = data.reduce((sum, d) => sum + d.time, 0) / (data.length || 1);
+  const overallAvgSec =
+    data.reduce((sum, d) => sum + d.time, 0) / (data.length || 1);
   const overallAvgMin = Math.floor(overallAvgSec / 60);
   const overallAvgSecRem = Math.round(overallAvgSec % 60);
 
-  const handleContinue = () => {
-    navigate(`/day-complete/${dayNum}`);
-  };
-
-  const maxTime = Math.max(...data.map((d) => d.time), 0);
+  const handleContinue = () => navigate(`/day-complete/${dayNum}`);
+  const maxTime = Math.max(...data.map(d => d.time), 0);
 
   return (
-    <div className="container">
+    <div className="container progress-dashboard-page">
       <Header title="Progress" backTo={`/summary/${dayNum}`} />
-      <div className="content" style={{ textAlign: 'center', paddingTop: '24px' }}>
-        <h2
-          style={{
-            fontSize: '1.5rem',
-            fontWeight: 700,
-            color: 'var(--color-primary-dark)',
-            marginBottom: '16px',
-          }}
-        >
-          Progress Dashboard
-        </h2>
 
-        {/* Average Score Chart */}
-        <div style={{ marginBottom: '24px' }}>
-          <div
-            style={{
-              fontSize: '1rem',
-              color: 'var(--color-text-dark)',
-              marginBottom: '8px',
-            }}
-          >
-            Average Score
-          </div>
-          <div style={{ width: 320, height: 200, margin: '0 auto' }}>
+      <div className="progress-dashboard-content">
+        <div className="progress-dashboard-card">
+          <h2>Progress Dashboard</h2>
+
+          {/* Average Score */}
+          <div className="chart-label">Average Score</div>
+          <div className="progress-dashboard-chart-wrapper">
             <ResponsiveContainer width="100%" height="100%">
               <LineChart data={data}>
                 <CartesianGrid strokeDasharray="3 3" />
-                <XAxis
-                  dataKey="day"
-                  label={{ value: 'Day', position: 'insideBottomRight', offset: -5 }}
-                />
-                <YAxis domain={[0, 100]} tickFormatter={(v) => `${v}%`} />
-                <Tooltip
-                  formatter={(value, name) =>
-                    name === 'score' ? `${value}%` : `${value}s`
-                  }
-                />
+                <XAxis dataKey="day" tickLine={false} />
+                <YAxis domain={[0, 100]} tickFormatter={v => `${v}%`} />
+                <Tooltip formatter={(val, name) =>
+                  name === 'score' ? `${val}%` : `${val}s`
+                } />
                 <Line
                   type="monotone"
                   dataKey="score"
-                  stroke="#4CAF50"
+                  stroke="var(--color-accent)"
                   dot={{ r: 5 }}
                 />
               </LineChart>
             </ResponsiveContainer>
           </div>
-        </div>
 
-        {/* Average Time Chart */}
-        <div style={{ marginBottom: '24px' }}>
-          <div
-            style={{
-              fontSize: '1rem',
-              color: 'var(--color-text-dark)',
-              marginBottom: '8px',
-            }}
-          >
-            Average Time (sec)
-          </div>
-          <div style={{ width: 320, height: 200, margin: '0 auto' }}>
+          {/* Average Time */}
+          <div className="chart-label">Average Time (sec)</div>
+          <div className="progress-dashboard-chart-wrapper">
             <ResponsiveContainer width="100%" height="100%">
               <LineChart data={data}>
                 <CartesianGrid strokeDasharray="3 3" />
-                <XAxis
-                  dataKey="day"
-                  label={{ value: 'Day', position: 'insideBottomRight', offset: -5 }}
-                />
+                <XAxis dataKey="day" tickLine={false} />
                 <YAxis domain={[0, maxTime]} />
-                <Tooltip formatter={(value) => `${value}s`} />
+                <Tooltip formatter={v => `${v}s`} />
                 <Line
                   type="monotone"
                   dataKey="time"
-                  stroke="#1e40af"
+                  stroke="var(--color-primary-dark)"
                   dot={{ r: 5 }}
                 />
               </LineChart>
             </ResponsiveContainer>
           </div>
+
+          {/* Summary metrics */}
+          <div className="summary-metrics">
+            <div className="metric">
+              <span className="metric-label">Avg. Score</span>
+              <span className="metric-value">
+                {Math.round(overallPercent)}%
+              </span>
+            </div>
+            <div className="metric">
+              <span className="metric-label">Avg. Time</span>
+              <span className="metric-value">
+                {overallAvgMin}m {overallAvgSecRem}s
+              </span>
+            </div>
+          </div>
         </div>
 
-        {/* Summary metrics */}
-        <div
-          style={{
-            display: 'flex',
-            justifyContent: 'space-around',
-            marginBottom: '24px',
-            maxWidth: '360px',
-            margin: '0 auto',
-          }}
+        {/* Continue button */}
+        <Button
+          large
+          className="progress-dashboard-button"
+          onClick={handleContinue}
         >
-          <div>
-            <div
-              style={{ fontSize: '1rem', color: 'var(--color-text-dark)' }}
-            >
-              Avg. Score
-            </div>
-            <div
-              style={{
-                fontSize: '1.5rem',
-                fontWeight: 700,
-                color: 'var(--color-primary-dark)',
-              }}
-            >
-              {Math.round(overallPercent)}%
-            </div>
-          </div>
-          <div>
-            <div
-              style={{ fontSize: '1rem', color: 'var(--color-text-dark)' }}
-            >
-              Avg. Time
-            </div>
-            <div
-              style={{
-                fontSize: '1.5rem',
-                fontWeight: 700,
-                color: 'var(--color-primary-dark)',
-              }}
-            >
-              {overallAvgMin}m {overallAvgSecRem}s
-            </div>
-          </div>
-        </div>
-
-        <Button large onClick={handleContinue}>
           Continue
         </Button>
       </div>

@@ -1,4 +1,5 @@
 // src/pages/DayComplete.jsx
+
 import React from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
@@ -22,8 +23,7 @@ export default function DayComplete() {
     <div className="container day-complete-page">
       <Header title={`Day ${dayNum} Complete`} backTo={`/dashboard/${dayNum}`} />
 
-      {/* semi-transparent card that ends 20px below “recorded” */}
-      <div className="content day-complete-content">
+      <div className="day-complete-content">
         <h2 className="day-complete-title">
           Thank You for Day {dayNum}!
         </h2>
@@ -32,7 +32,6 @@ export default function DayComplete() {
         </p>
       </div>
 
-      {/* button sits immediately below that box */}
       <Button large className="day-complete-btn" onClick={handleNext}>
         {dayNum < 8 ? `Start Day ${dayNum + 1}` : 'Finish'}
       </Button>

@@ -10,7 +10,6 @@
   color: #1E40AF;
   font-size: 16px;
   margin: 0;
-  margin-bottom: 30px;
 }
 
 /* Section headings */
@@ -41,7 +40,7 @@
 .consent-list {
   list-style-type: disc;
   list-style-position: inside;  /* ← ensure the bullet is inside */
-  padding-left: 30px;
+  padding-left: 10px;
   margin: 0 0 8px;
   color: #1E40AF;
   font-size: 12px;
@@ -52,7 +51,7 @@
 .consent-checkbox {
   display: flex;
   align-items: flex-start;
-  margin-bottom: 30px;
+  margin-bottom: 15px;
 }
 
 .consent-checkbox input {
@@ -81,4 +80,5 @@
   font-size: 1.8rem;
   font-weight: 600;
   margin-bottom: 50px;
+  align-items: center;
 }
