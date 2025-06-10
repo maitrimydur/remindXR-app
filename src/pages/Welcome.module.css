@@ -95,7 +95,7 @@
   object-fit: contain; /* Ensures the image scales nicely within the bounds */
 }
 
-.iconLabel { margin-top: .5rem; font: 600 .9rem/1 "Inter"; color: #1e40af; }
+.iconLabel { margin-top: .5rem; font: 600 .9rem/1 "Inter"; color: #1e40af; margin-bottom: 30px;}
 
 /* ───── CTA Button ───── */
 .ctaButton {
@@ -109,7 +109,5 @@
   width: 100%;
   max-width: 340px;
   transition: opacity .15s ease-in-out;
-  margin-top: auto;
-  margin-bottom: 3rem;
 }
 .ctaButton:hover { opacity: .9; }

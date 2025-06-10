@@ -52,7 +52,7 @@ export default function PracticeDeck() {
             borderRadius: '24px',
             padding: '24px',
             maxWidth: '380px',
-            maxHeight: '800px',
+            maxHeight: '700px',
             width: '100%',
             boxSizing: 'border-box',
           }}

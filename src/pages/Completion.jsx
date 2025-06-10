@@ -21,15 +21,18 @@ export default function Completion() {
         <div className="completion-card">
           <h2
             style={{
-              fontSize: '1.5rem',
-              fontWeight: 700,
-              color: 'var(--color-primary-dark)',
-              marginBottom: '12px',
+              fontSize: '3.15rem',
+              fontWeight: 600,
+              color: '#1E40AF',
+              marginBottom: '30px',
+              marginLeft: '10px',
+              marginRight: '10px'
+
             }}
           >
             Thank You for Your Participation!
           </h2>
-          <p style={{ fontSize: '1rem', color: 'var(--color-primary-dark)' }}>
+          <p style={{ fontSize: '1.25rem', color: 'var(--color-primary-dark)', textAlign: 'left', paddingLeft: '15px', paddingRight: '15px', paddingBottom: '50px'}}>
             All eight days are complete. Your data have been recorded. Feel free to exit or revisit your progress any time.
           </p>
         </div>

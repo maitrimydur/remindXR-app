@@ -81,4 +81,12 @@
   font-weight: 600;
   margin-bottom: 50px;
   align-items: center;
+  cursor: pointer;
+  transition: background-color .2s, opacity .2s;
+}
+
+.btn-large:disabled {
+  background-color: #93C5FD;      /* a lighter blue */
+  opacity: 0.6;                    /* make it look “grayed‐out” */
+  cursor: not-allowed;            /* show the disabled cursor */
 }

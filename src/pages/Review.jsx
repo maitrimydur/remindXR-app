@@ -32,6 +32,8 @@ export default function Review() {
   };
 
   const handleComplete = () => {
+    // Add endTime here!
+    editSession(dayNum, { ...sessionData, endTime: Date.now() });
     navigate(`/summary/${dayNum}`);
   };
 

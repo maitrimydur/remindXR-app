@@ -1,6 +1,4 @@
-/* src/pages/SessionSummary.css */
-
-/* --- Pull the summary card up under the Header bar --- */
+/* Pull the summary card up under the Header bar */
 .session-summary-content {
   position: relative;
   top: 20px;
@@ -11,7 +9,7 @@
   width: 100%;
 }
 
-/* --- Title card (“Session Summary”) --- */
+/* Title card (“Session Summary”) */
 .session-summary-title-card {
   background-color: var(--color-primary-dark);
   color: #fff;
@@ -28,9 +26,9 @@
   font-weight: 650;
 }
 
-/* --- Stats card (light blue background) --- */
+/* Stats card (light blue background) */
 .session-summary-stats-card {
-  background-color: #C1D9FA ;
+  background-color: #C1D9FA;
   width: 90%;
   max-width: 420px;
   border-radius: 12px;
@@ -39,7 +37,7 @@
   box-sizing: border-box;
 }
 
-/* --- Two labelled rows: Time Spent / Score --- */
+/* Two labelled rows: Time Spent / Score */
 .stats-row {
   display: flex;
   justify-content: space-between;
@@ -55,9 +53,10 @@
   font-size: 1.5rem;
   font-weight: 600;
   color: var(--color-primary-dark);
+  white-space: nowrap;
 }
 
-/* --- Chart + legend side-by-side --- */
+/* Chart + legend side-by-side */
 .chart-section {
   margin-top: 30px;
   display: flex;
@@ -88,7 +87,7 @@
   margin-right: 8px;
 }
 
-/* --- Full-width “Continue” button --- */
+/* Full-width “Continue” button */
 .session-summary-button {
   width: 90%;
   max-width: 420px;

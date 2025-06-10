@@ -1,5 +1,5 @@
 // src/pages/PracticeCard.jsx
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
 import WordCard from '../components/WordCard';
@@ -16,6 +16,18 @@ export default function PracticeCard() {
 
   const wordObj = WORD_LISTS[dayNum]?.words[idx];
   const [startTime] = useState(new Date());
+
+  // --- Set session startTime if on first card and not set ---
+  useEffect(() => {
+    const session = state.sessions[dayNum];
+    if (idx === 0 && (!session || !session.startTime)) {
+      saveSession(dayNum, { 
+        ...(session || {}),
+        startTime: Date.now()
+      });
+    }
+    // Only runs on first card
+  }, [dayNum, idx, state.sessions, saveSession]);
 
   if (!wordObj) {
     return (

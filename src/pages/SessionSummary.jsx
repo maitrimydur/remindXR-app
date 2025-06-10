@@ -1,3 +1,4 @@
+// src/pages/SessionSummary.jsx
 import React, { useContext } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
@@ -13,67 +14,76 @@ export default function SessionSummary() {
   const { day } = useParams();
   const dayNum = parseInt(day, 10);
 
-  // Redirect if no session data
+  // 1) fetch session
   const sessionData = state.sessions[dayNum];
   if (!sessionData) {
     navigate(`/practice/${dayNum}`);
     return null;
   }
 
-  const responses = sessionData.responses;
-  const total = WORD_LISTS[dayNum].words.length;
-  const gotCount = responses.filter(r => r.result === 'got').length;
-  const wrongCount = total - gotCount;
+  // 2) basic stats
+  const responses = sessionData.responses || [];
+  const totalWords = WORD_LISTS[dayNum].words.length;
+  const gotCount   = responses.filter(r => r.result === 'got').length;
+  const wrongCount = totalWords - gotCount;
 
-  // Sum up total time in seconds
-  const totalSeconds = responses.reduce((acc, r) => {
-    let mins = 0;
-    let secs = 0;
-    r.timeSpent.split(' ').forEach(p => {
-      if (p.endsWith('m')) mins = parseInt(p, 10);
-      if (p.endsWith('s')) secs = parseInt(p, 10);
-    });
-    return acc + mins * 60 + secs;
-  }, 0);
+  // 3) calculate elapsed seconds: primary = endTime-startTime, fallback = sum of timeSpent
+  let totalSeconds = 0;
+
+  if (typeof sessionData.startTime === 'number' && typeof sessionData.endTime === 'number') {
+    totalSeconds = Math.max(0, Math.round((sessionData.endTime - sessionData.startTime) / 1000));
+  } else {
+    // fallback sum of per-card times (expects "Xm Ys" strings)
+    totalSeconds = responses.reduce((acc, { timeSpent }) => {
+      if (typeof timeSpent === 'string') {
+        const ms = timeSpent.match(/(\d+)\s*m/i);
+        const ss = timeSpent.match(/(\d+)\s*s/i);
+        const m = ms ? parseInt(ms[1], 10) : 0;
+        const s = ss ? parseInt(ss[1], 10) : 0;
+        return acc + m * 60 + s;
+      }
+      if (typeof timeSpent === 'number') {
+        return acc + timeSpent;
+      }
+      return acc;
+    }, 0);
+  }
+
+  // 4) format for display
   const minutes = Math.floor(totalSeconds / 60);
   const seconds = totalSeconds % 60;
   const timeSpent = `${minutes}m ${seconds}s`;
 
-  const pct = ((gotCount / total) * 100).toFixed(1);
+  // 5) score %
+  const pct = ((gotCount / totalWords) * 100).toFixed(1);
 
-  const data = [
-    { name: 'Correct', value: gotCount },
+  // 6) prepare pie data
+  const data   = [
+    { name: 'Correct',   value: gotCount   },
     { name: 'Incorrect', value: wrongCount },
   ];
   const COLORS = ['#1E40AF', '#60A5FA'];
 
-  const handleContinue = () => {
-    navigate(`/dashboard/${dayNum}`);
-  };
-
+  // 7) render
   return (
     <div className="container">
       <Header title="Session" backTo={`/review/${dayNum}`} />
 
       <div className="content session-summary-content">
-        {/* Title Card */}
         <div className="session-summary-title-card">
           <h2>Session Summary</h2>
         </div>
 
-        {/* Stats Card */}
         <div className="session-summary-stats-card">
           <div className="stats-row">
             <span className="label">Time Spent</span>
             <span className="value">{timeSpent}</span>
           </div>
-
           <div className="stats-row">
             <span className="label">Score</span>
-            <span className="value">{gotCount}/{total} ({pct}%)</span>
+            <span className="value">{gotCount}/{totalWords} ({pct}%)</span>
           </div>
 
-          {/* Chart + Legend */}
           <div className="chart-section">
             <div className="session-summary-chart-wrapper">
               <ResponsiveContainer width="100%" height="100%">
@@ -89,38 +99,30 @@ export default function SessionSummary() {
                     label
                   >
                     {data.map((entry, i) => (
-                      <Cell key={`cell-${i}`} fill={COLORS[i % COLORS.length]} />
+                      <Cell key={i} fill={COLORS[i % COLORS.length]} />
                     ))}
                   </Pie>
                   <Tooltip />
                 </PieChart>
               </ResponsiveContainer>
             </div>
-
             <div className="legend">
               <div className="legend-item">
-                <span
-                  className="legend-swatch"
-                  style={{ backgroundColor: COLORS[0] }}
-                />
+                <span className="legend-swatch" style={{ backgroundColor: COLORS[0] }} />
                 Got It
               </div>
               <div className="legend-item">
-                <span
-                  className="legend-swatch"
-                  style={{ backgroundColor: COLORS[1] }}
-                />
+                <span className="legend-swatch" style={{ backgroundColor: COLORS[1] }} />
                 Struggled
               </div>
             </div>
           </div>
         </div>
 
-        {/* Continue Button */}
         <Button
           large
           className="session-summary-button"
-          onClick={handleContinue}
+          onClick={() => navigate(`/dashboard/${dayNum}`)}
         >
           Continue
         </Button>

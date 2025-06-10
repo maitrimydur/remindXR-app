@@ -71,7 +71,7 @@ html, body, #root {
   padding: 18px;
   background-color: #1E40AF;
   border-radius: 25px;
-  height: 70px;
+  height: 80px;
   margin-top: 25px;
 }
 
@@ -184,6 +184,7 @@ html, body, #root {
   padding: 14px;
   width: 100%;
   max-width: 300px;
+  max-height: 62px;
   margin: 8px auto;
   font-size: 1.5rem;
   cursor: pointer;
@@ -304,7 +305,7 @@ input:checked + .slider:before {
 
 /* Completion card */
 .completion-card {
-  background-color: var(--color-accent-light);
+  background-color: rgba(96, 165, 250, 0.5);
   border: 2px solid var(--color-primary);
   border-radius: 12px;
   padding: 16px;
