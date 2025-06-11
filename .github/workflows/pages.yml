@@ -1,9 +1,4 @@
-name: Build and deploy to GitHub Pages
-
-permissions:
-  contents: read
-  pages: write
-  id-token: write
+name: Deploy to GitHub Pages
 
 on:
   push:
@@ -11,13 +6,18 @@ on:
       - main
 
 jobs:
-  build:
+  deploy:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read    # for checkout
+      pages: write      # to publish
+      id-token: write   # required by configure-pages
+
     steps:
-      - name: Checkout code
+      - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Setup Node
+      - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
           node-version: '18'
@@ -28,28 +28,8 @@ jobs:
       - name: Build
         run: npm run build
 
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-      - name: Configure Pages
-        uses: actions/configure-pages@v2
-
-      - name: Upload Pages artifact
-        uses: actions/upload-pages-artifact@v1
-        with:
-          path: dist
-
-  publish:
-    needs: deploy
-    runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deploy-pages.outputs.page_url }}
-    steps:
-      - name: Download Pages artifact
-        uses: actions/download-pages-artifact@v1
-
       - name: Deploy to GitHub Pages
-        id: deploy-pages
-        uses: actions/deploy-pages@v1
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist
