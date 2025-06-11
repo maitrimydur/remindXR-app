@@ -4,10 +4,13 @@
 .progress-dashboard-page {
   background-color: var(--color-accent);
   min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
 /* Content wrapper, pulled up under the header bar */
 .progress-dashboard-content {
+  flex: 1;
   position: relative;
   top: 20px;
   display: flex;
@@ -15,6 +18,7 @@
   align-items: center;
   padding-bottom: 24px;
   width: 100%;
+  padding: 24px 0 60px;
 }
 
 /* One big white card around everything except the button */
