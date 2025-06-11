@@ -1,4 +1,4 @@
-name: Build and deploy to GitHub Pages
+name: Deploy static files to GitHub Pages
 
 on:
   push:
@@ -6,35 +6,24 @@ on:
       - main
 
 jobs:
-  build:
+  deploy:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
 
-      - uses: actions/setup-node@v3
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
         with:
           node-version: '18'
 
-      - name: Install dependencies
-        run: npm ci
+      - name: Install & Build
+        working-directory: ./my-app
+        run: |
+          npm ci
+          npm run build
 
-      - name: Build
-        run: npm run build
-
-      - uses: actions/configure-pages@v2
-
-      - uses: actions/upload-pages-artifact@v1
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
         with:
-          path: dist
-
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deploy-pages.outputs.page_url }}
-    steps:
-      - uses: actions/download-pages-artifact@v1
-
-      - id: deploy-pages
-        uses: actions/deploy-pages@v1
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./my-app/dist
