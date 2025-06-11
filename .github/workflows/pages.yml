@@ -1,35 +1,43 @@
 name: Deploy to GitHub Pages
 
+# Only run on pushes to main
 on:
   push:
     branches:
       - main
 
+# Grant the token rights to push to Pages
+permissions:
+  contents: read    # allow checkout
+  pages: write      # allow publishing
+  id-token: write   # required by some pages actions
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    permissions:
-      contents: read    # for checkout
-      pages: write      # to publish
-      id-token: write   # required by configure-pages
 
     steps:
+      # 1. Check out your code
       - name: Checkout repository
         uses: actions/checkout@v3
 
+      # 2. Install Node.js
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
           node-version: '18'
 
+      # 3. Install dependencies
       - name: Install dependencies
         run: npm ci
 
+      # 4. Build your Vite app
       - name: Build
         run: npm run build
 
+      # 5. Deploy the contents of dist/ to GitHub Pages using your PAT
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          personal_token: ${{ secrets.PAGES_PAT }}
           publish_dir: ./dist
