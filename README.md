@@ -71,30 +71,30 @@ A React-powered spaced-repetition system designed for adolescents and young adul
 ---
 
 ## 🗂️ Project Structure
-src/
-├── assets/                 # Logo & icon images
-├── components/             # Reusable UI components
-│   ├── Button.jsx
-│   ├── Chart.jsx
-│   ├── Header.jsx + CSS
-│   └── …  
-├── context/                # Global state (AppContext)
-├── pages/                  # Screen-level routes
-│   ├── Welcome.jsx + CSS
-│   ├── Consent.jsx + CSS
-│   ├── Login.jsx + CSS
-│   ├── PracticeDeck.jsx
-│   ├── PracticeCard.jsx
-│   ├── Review.jsx
-│   ├── SessionSummary.jsx + CSS
-│   ├── ProgressDashboard.jsx + CSS
-│   ├── ReminderSettings.jsx
-│   ├── DayComplete.jsx + CSS
-│   └── Completion.jsx
-├── services/               # API/auth/scheduler stubs
-├── utils/                  # constants, time formatting, chart utils
-├── App.jsx                 # Route configuration
-└── index.js                # ReactDOM render
+    src/
+    ├── assets/                 # Logo & icon images
+    ├── components/             # Reusable UI components
+    │   ├── Button.jsx
+    │   ├── Chart.jsx
+    │   ├── Header.jsx + CSS
+    │   └── …  
+    ├── context/                # Global state (AppContext)
+    ├── pages/                  # Screen-level routes
+    │   ├── Welcome.jsx + CSS
+    │   ├── Consent.jsx + CSS
+    │   ├── Login.jsx + CSS
+    │   ├── PracticeDeck.jsx
+    │   ├── PracticeCard.jsx
+    │   ├── Review.jsx
+    │   ├── SessionSummary.jsx + CSS
+    │   ├── ProgressDashboard.jsx + CSS
+    │   ├── ReminderSettings.jsx
+    │   ├── DayComplete.jsx + CSS
+    │   └── Completion.jsx
+    ├── services/               # API/auth/scheduler stubs
+    ├── utils/                  # constants, time formatting, chart utils
+    ├── App.jsx                 # Route configuration
+    └── index.js                # ReactDOM render
 
 ---
 
