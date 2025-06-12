@@ -67,3 +67,51 @@ A React-powered spaced-repetition system designed for adolescents and young adul
    # or
    yarn build
 - Bundles into `build/`
+
+---
+
+## 🗂️ Project Structure
+src/
+├── assets/                 # Logo & icon images
+├── components/             # Reusable UI components
+│   ├── Button.jsx
+│   ├── Chart.jsx
+│   ├── Header.jsx + CSS
+│   └── …  
+├── context/                # Global state (AppContext)
+├── pages/                  # Screen-level routes
+│   ├── Welcome.jsx + CSS
+│   ├── Consent.jsx + CSS
+│   ├── Login.jsx + CSS
+│   ├── PracticeDeck.jsx
+│   ├── PracticeCard.jsx
+│   ├── Review.jsx
+│   ├── SessionSummary.jsx + CSS
+│   ├── ProgressDashboard.jsx + CSS
+│   ├── ReminderSettings.jsx
+│   ├── DayComplete.jsx + CSS
+│   └── Completion.jsx
+├── services/               # API/auth/scheduler stubs
+├── utils/                  # constants, time formatting, chart utils
+├── App.jsx                 # Route configuration
+└── index.js                # ReactDOM render
+
+---
+
+## 📖 Usage Flow
+1. **Welcome** → brief intro + “Get Started”
+2. **Consent** → IRB-style informed consent form
+3. **Login / Sign-Up** → email or OAuth stub
+4. **Practice Deck** → overview of today’s cards
+5. **Card View** → word-image, pronunciation, “Got It” / “Struggled”
+6. **Review** → editable summary of responses
+7. **Session** Summary → pie chart + time/score stats
+8. **Progress** Dashboard → line charts of % correct & time
+9. **Reminders** → toggle daily push notifications
+10. **Completion** → “Thank you” screen
+
+---
+
+## 📄 License
+This work is licensed under the **MIT License**. For details, see the [LICENSE](https://rem.mit-license.org/).
+   
