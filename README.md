@@ -49,3 +49,21 @@ A React-powered spaced-repetition system designed for adolescents and young adul
    ```bash
    git clone https://github.com/your-username/ReMind-XR.git
    cd ReMind-XR
+2. **Install dependencies**  
+   ```bash
+   npm install
+   # or
+   yarn install
+- Opens on http://localhost:5173
+- Live-reloads on file change
+3. **Run in development mode**  
+   ```bash
+   npm start
+   # or
+   yarn start
+4. **Build for production**  
+   ```bash
+   npm run build
+   # or
+   yarn build
+- Bundles into `build/`
