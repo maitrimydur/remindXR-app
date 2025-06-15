@@ -1,9 +1,8 @@
-// src/components/Chart.jsx
 import React from 'react';
 import { makeLinePath } from '../utils/chartUtils';
 
 export default function Chart({
-  dataPoints,   // e.g. [75, 60, 90, 50, ...]
+  dataPoints,   
   width = 300,
   height = 200,
 }) {
@@ -11,7 +10,6 @@ export default function Chart({
     return <div style={{ textAlign: 'center', color: '#555' }}>No data</div>;
   }
 
-  // Generate the SVG path string
   const pathD = makeLinePath(dataPoints, width, height, 24);
 
   return (
